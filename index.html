@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee Ghiri Homestay — Kudremukh, Chikmagalur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="cg-shared.css">
+<style>
+/* HOME ONLY */
+.hero{height:100svh;min-height:600px;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(40px,6vw,80px) clamp(20px,5vw,80px);overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-bg .fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(155deg,rgba(15,22,14,.05) 0%,rgba(15,22,14,.3) 40%,rgba(15,22,14,.9) 100%)}
+.hero-content{position:relative;z-index:2;max-width:880px}
+.hero-cert{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(184,154,106,.3);padding:7px 16px;margin-bottom:clamp(16px,3vw,26px);opacity:0;animation:fu .9s .2s forwards}
+.hero-cert span{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:400}
+.hero-cert-dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.hero-loc{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:rgba(212,188,150,.75);font-weight:300;margin-bottom:clamp(14px,2vw,22px);opacity:0;animation:fu .9s .35s forwards}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(50px,9vw,128px);font-weight:300;line-height:.9;color:var(--warm-white);letter-spacing:-2px;margin-bottom:clamp(20px,3vw,36px);opacity:0;animation:fu 1s .55s forwards}
+.hero-h1 i{font-style:italic;color:var(--gold-lt)}
+.hero-row{display:flex;align-items:center;gap:clamp(14px,3vw,38px);flex-wrap:wrap;opacity:0;animation:fu .9s .8s forwards}
+.hero-divider{width:clamp(36px,5vw,70px);height:1px;background:var(--gold);opacity:.5}
+.hero-sub{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(250,248,245,.4);font-weight:300}
+.hero-btn{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(184,154,106,.5);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;text-decoration:none;padding:14px 30px;transition:all .4s;cursor:none}
+.hero-btn:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.hero-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;transition:transform .4s}
+.hero-btn:hover svg{transform:translateX(4px)}
+.hero-scroll{position:absolute;right:clamp(20px,4vw,56px);bottom:clamp(28px,5vw,60px);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fu .9s 1.5s forwards}
+.hero-scroll span{font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(250,248,245,.3);writing-mode:vertical-rl}
+.scroll-line{width:1px;height:clamp(40px,6vw,66px);background:linear-gradient(var(--gold),transparent);animation:sl 2.2s ease-in-out infinite}
+@keyframes sl{0%,100%{transform:scaleY(.35);opacity:.25;transform-origin:top}50%{transform:scaleY(1);opacity:1;transform-origin:top}}
+@keyframes fu{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATS */
+.stats{background:var(--forest);display:flex;flex-wrap:wrap;border-top:1px solid rgba(184,154,106,.12)}
+.stat{flex:1;min-width:150px;padding:clamp(22px,3.5vw,40px) 16px;text-align:center;border-right:1px solid rgba(184,154,106,.1)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Playfair Display',serif;font-size:clamp(28px,4.5vw,48px);font-weight:300;color:var(--gold);line-height:1}
+.stat-l{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(184,200,178,.4);margin-top:6px;font-weight:300}
+
+/* INTRO */
+.intro{background:var(--off-white)}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:center}
+.intro-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:22px;font-weight:300}
+.intro-text p strong{color:var(--ink);font-weight:400}
+.intro-links{display:flex;gap:16px;flex-wrap:wrap;margin-top:36px}
+.il{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:400;padding:12px 24px;transition:all .3s;cursor:none}
+.il-primary{background:var(--forest);color:var(--gold);border:1px solid var(--forest)}
+.il-primary:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.il-secondary{border:1px solid var(--stone);color:var(--muted)}
+.il-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.il svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5;transition:transform .3s}
+.il:hover svg{transform:translateX(3px)}
+.intro-imgs{position:relative;height:clamp(380px,52vw,640px)}
+.im-main{position:absolute;top:0;left:0;width:76%;height:80%;object-fit:cover}
+.im-sub{position:absolute;bottom:0;right:0;width:50%;height:48%;object-fit:cover;border:5px solid var(--off-white)}
+.im-cert{position:absolute;bottom:clamp(80px,12vw,130px);left:-1px;background:var(--gold);color:var(--ink);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;padding:10px 14px;writing-mode:vertical-rl;font-weight:500}
+.im-badge{position:absolute;top:clamp(20px,3vw,32px);right:clamp(-10px,-1.5vw,-16px);background:var(--ink);border:1px solid rgba(184,154,106,.3);padding:clamp(14px,2vw,22px) clamp(12px,1.8vw,20px);text-align:center}
+.im-badge-n{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,38px);font-weight:300;color:var(--gold);line-height:1}
+.im-badge-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(200,191,180,.5);font-weight:300;margin-top:4px;font-family:'DM Sans',sans-serif}
+
+/* HIGHLIGHTS */
+.highlights{background:var(--warm-white)}
+.hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:clamp(36px,5vw,64px)}
+.hl-item{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:none}
+.hl-bg{position:absolute;inset:0;transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
+.hl-item:hover .hl-bg{transform:scale(1.06)}
+.hl-veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,22,14,.92) 0%,rgba(15,22,14,.1) 55%,transparent 100%)}
+.hl-body{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,3vw,32px)}
+.hl-num{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400}
+.hl-name{font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,28px);font-weight:300;color:var(--warm-white);line-height:1.15}
+.hl-desc{font-size:12px;color:rgba(212,188,150,.6);margin-top:8px;font-weight:300;line-height:1.7;opacity:0;transform:translateY(8px);transition:all .4s}
+.hl-item:hover .hl-desc{opacity:1;transform:translateY(0)}
+.hl-link{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);text-decoration:none;opacity:0;transform:translateY(6px);transition:all .4s .05s}
+.hl-item:hover .hl-link{opacity:1;transform:translateY(0)}
+.hl-link svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:1.5}
+
+/* GALLERY STRIP HOME */
+.gallery-home{background:var(--stone-lt);padding:var(--sp) 0}
+.gallery-home-head{padding:0 clamp(20px,5vw,80px);max-width:1260px;margin:0 auto clamp(32px,5vw,56px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+.gallery-grid{max-width:1260px;margin:0 auto;padding:0 clamp(20px,5vw,80px);display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:3px}
+.gi{overflow:hidden;position:relative;background:var(--stone)}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.25,.46,.45,.94)}
+.gi:hover img{transform:scale(1.05)}
+.gi-tall{grid-row:span 2}
+.gi-tall img{height:100%;min-height:clamp(280px,38vw,520px)}
+.gi-sq{aspect-ratio:4/3}
+
+/* GOOGLE REVIEWS */
+.testimonials{background:var(--off-white)}
+.gr-header{max-width:1260px;margin:0 auto clamp(32px,5vw,56px);display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.gr-score-block{display:flex;align-items:center;gap:clamp(16px,3vw,32px);padding:clamp(18px,3vw,28px) clamp(20px,3.5vw,36px);background:var(--warm-white);border:1px solid var(--stone-lt)}
+.gr-logo{display:flex;flex-direction:column;align-items:center;gap:6px}
+.gr-logo svg{width:28px;height:28px}
+.gr-logo-label{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:400}
+.gr-score-divider{width:1px;height:40px;background:var(--stone-lt)}
+.gr-rating-big{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,52px);font-weight:300;color:var(--ink);line-height:1}
+.gr-stars-row{display:flex;gap:3px;margin-top:5px}
+.gr-stars-row svg{width:14px;height:14px;fill:#FBBC04}
+.gr-total{font-size:10px;color:var(--muted);margin-top:4px;font-weight:300}
+.gr-view-all{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--stone-lt);padding-bottom:3px;transition:color .3s,border-color .3s;font-weight:300}
+.gr-view-all:hover{color:var(--gold);border-color:var(--gold)}
+.gr-view-all svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5}
+/* CARDS */
+.gr-grid{max-width:1260px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,20px)}
+.gr-card{background:var(--warm-white);border:1px solid var(--stone-lt);padding:clamp(20px,3vw,30px);position:relative;transition:border-color .35s,transform .4s,box-shadow .4s;cursor:default}
+.gr-card:hover{border-color:rgba(251,188,4,.35);transform:translateY(-5px);box-shadow:0 12px 40px rgba(0,0,0,.07)}
+/* Google G top-right */
+.gr-card-g{position:absolute;top:clamp(16px,2.5vw,22px);right:clamp(16px,2.5vw,22px)}
+.gr-card-g svg{width:20px;height:20px}
+/* Reviewer */
+.gr-reviewer{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.gr-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;font-weight:300;color:#fff;flex-shrink:0}
+.gr-reviewer-name{font-size:13px;font-weight:400;color:var(--ink);line-height:1.2}
+.gr-reviewer-meta{font-size:10px;color:var(--muted);margin-top:2px;font-weight:300}
+/* Stars */
+.gr-card-stars{display:flex;gap:2px;margin-bottom:12px}
+.gr-card-stars svg{width:13px;height:13px;fill:#FBBC04}
+/* Quote */
+.gr-card-quote{font-size:13px;color:var(--muted);line-height:1.85;font-weight:300;font-style:italic}
+.gr-card-quote::before{content:'"';font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);line-height:0;vertical-align:-8px;margin-right:3px}
+.gr-card-quote::after{content:'"';font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);line-height:0;vertical-align:-8px;margin-left:3px}
+/* Date */
+.gr-card-date{font-size:9px;letter-spacing:1px;color:var(--stone);margin-top:14px;font-weight:300}
+/* Bottom link */
+.gr-bottom{max-width:1260px;margin:clamp(28px,4vw,44px) auto 0;display:flex;align-items:center;justify-content:center;gap:16px}
+.gr-write-btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:12px 26px;border:1px solid var(--stone-lt);color:var(--muted);transition:all .3s;font-weight:400;cursor:none}
+.gr-write-btn:hover{border-color:var(--gold);color:var(--gold)}
+.gr-write-btn svg{width:14px;height:14px;flex-shrink:0}
+@media(max-width:1024px){.gr-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.gr-grid{grid-template-columns:1fr}.gr-header{flex-direction:column;align-items:flex-start}}
+
+/* PLATFORMS */
+.platforms{background:var(--forest);padding:clamp(40px,6vw,72px) clamp(20px,5vw,80px)}
+.plat-inner{max-width:1260px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.plat-label{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(200,191,180,.35);font-weight:300}
+.plat-ratings{display:flex;gap:clamp(24px,5vw,64px);flex-wrap:wrap;align-items:center}
+.pr{text-align:center}
+.pr-num{font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,38px);font-weight:300;color:var(--gold)}
+.pr-name{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(200,191,180,.3);margin-top:4px;font-weight:300}
+
+/* CTA BANNER */
+.cta-banner{background:var(--warm-white);padding:clamp(60px,8vw,100px) clamp(20px,5vw,80px);text-align:center}
+.cta-banner .h2{margin-bottom:clamp(24px,4vw,40px)}
+.cta-banner p{font-size:15px;color:var(--muted);max-width:600px;margin:0 auto clamp(32px,5vw,48px);line-height:1.9;font-weight:300}
+.cta-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:12px;background:var(--forest);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;text-decoration:none;padding:16px 36px;transition:all .4s;cursor:none;border:1px solid var(--forest)}
+.btn-primary:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.btn-secondary{display:inline-flex;align-items:center;gap:12px;background:transparent;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;text-decoration:none;padding:16px 36px;border:1px solid var(--stone);transition:all .4s;cursor:none}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+
+@media(max-width:1024px){
+  .intro-grid{grid-template-columns:1fr}
+  .intro-imgs{height:clamp(320px,50vw,500px)}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gi-tall{grid-row:auto;grid-column:span 2}
+  .gi-tall img{min-height:0;aspect-ratio:16/9;height:100%}
+  .gi-sq{aspect-ratio:4/3}
+}
+@media(max-width:768px){
+  .hl-grid{grid-template-columns:1fr 1fr}
+  .intro-imgs{display:none}
+}
+@media(max-width:520px){
+  .hl-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr}
+  .gi-tall{grid-column:auto}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<a href="https://wa.me/919481154240" class="wa" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" style="fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<nav id="nav">
+  <a href="index.html" class="n-logo">
+    <div class="n-logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg></div>
+    <div class="n-logo-text">Coffee Ghiri<b>Homestay</b></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="facilities.html">Facilities</a></li>
+    <li><a href="activities.html">Activities</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="n-cta">Book Now</a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html" class="mob-link">Home</a>
+  <a href="about.html" class="mob-link">About</a>
+  <a href="facilities.html" class="mob-link">Facilities</a>
+  <a href="activities.html" class="mob-link">Activities</a>
+  <a href="gallery.html" class="mob-link">Gallery</a>
+  <a href="contact.html" class="mob-link">Contact</a>
+  <a href="contact.html" class="mob-link mob-cta">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="coffeeghiri_hero.mp4" type="video/mp4">
+    </video>
+    <div class="fallback" id="fallbackImg" style="background:var(--forest-mid,#2D4A2A)"></div>
+    <div class="hero-veil"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-cert"><div class="hero-cert-dot"></div><span>Karnataka Tourism Certified Homestay</span></div>
+    <p class="hero-loc">Mullodi · Kalasa · Chikmagalur · Western Ghats</p>
+    <h1 class="hero-h1">Back to<br><i>Nature's</i><br>Embrace</h1>
+    <div class="hero-row">
+      <div class="hero-divider"></div>
+      <p class="hero-sub">Kudremukh Trekking Homestay</p>
+      <a href="contact.html" class="hero-btn">Book Your Stay <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <div class="mq-item"><span>Kudremukh Trekking Base</span><div class="mq-dot"></div><span>960m Above Sea Level</span><div class="mq-dot"></div><span>Karnataka Tourism Certified</span><div class="mq-dot"></div><span>Home-cooked Malnad Food</span><div class="mq-dot"></div><span>Free Breakfast</span><div class="mq-dot"></div><span>4×4 Jeep Facility</span><div class="mq-dot"></div><span>Avocado Bonfires</span><div class="mq-dot"></div><span>Hosting Since 2019</span><div class="mq-dot"></div><span>GoIbibo Rated 4.5 / 5</span><div class="mq-dot"></div></div>
+    <div class="mq-item"><span>Kudremukh Trekking Base</span><div class="mq-dot"></div><span>960m Above Sea Level</span><div class="mq-dot"></div><span>Karnataka Tourism Certified</span><div class="mq-dot"></div><span>Home-cooked Malnad Food</span><div class="mq-dot"></div><span>Free Breakfast</span><div class="mq-dot"></div><span>4×4 Jeep Facility</span><div class="mq-dot"></div><span>Avocado Bonfires</span><div class="mq-dot"></div><span>Hosting Since 2019</span><div class="mq-dot"></div><span>GoIbibo Rated 4.5 / 5</span><div class="mq-dot"></div></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats rv">
+  <div class="stat"><div class="stat-n">960m</div><div class="stat-l">Above Sea Level</div></div>
+  <div class="stat"><div class="stat-n">4.5★</div><div class="stat-l">GoIbibo Rating</div></div>
+  <div class="stat"><div class="stat-n">126</div><div class="stat-l">Google Reviews</div></div>
+  <div class="stat"><div class="stat-n">2019</div><div class="stat-l">Hosting Since</div></div>
+  <div class="stat"><div class="stat-n">12+</div><div class="stat-l">Nearby Activities</div></div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="inner">
+    <div class="intro-grid">
+      <div class="rv-l">
+        <p class="eyebrow">Welcome To</p>
+        <h2 class="h2">Coffee-Ghiri <i>Home Stay</i></h2>
+        <p>Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
+        <p><strong>Blend of rustic and modern:</strong> Enjoy the feel of nature with cozy nights and modern comforts. Facilities include avocado bonfires, home-style Malenadu cooking, caretaker support, luggage storage, kitchenette, and free breakfast.</p>
+        <p><strong>Host &amp; Hospitality:</strong> Run by Ganesh, an amiable host who's been hosting since 2019. He manages the property alongside his family and staff, and stays on-site to assist guests. Guests report smooth check-in/out, flexible policies, and a friendly on-site manager.</p>
+        <div class="intro-links">
+          <a href="about.html" class="il il-primary">Our Story <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          <a href="facilities.html" class="il il-secondary">Facilities <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+      </div>
+      <div class="rv-r">
+        <div class="intro-imgs">
+          <div class="im-main" style="background:var(--forest-mid,#2D4A2A)"></div>
+          <div class="im-sub" style="background:var(--forest-mid,#2D4A2A)"></div>
+          <div class="im-cert">Karnataka Tourism Certified</div>
+          <div class="im-badge"><div class="im-badge-n">960m</div><div class="im-badge-l">Elevation</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="highlights">
+  <div class="inner">
+    <div class="rv">
+      <p class="eyebrow">Highlights</p>
+      <h2 class="h2">Location &amp; <i>Ambience</i></h2>
+    </div>
+  </div>
+  <div class="hl-grid" style="margin-top:clamp(32px,5vw,60px)">
+    <div class="hl-item">
+      <div class="hl-bg" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="hl-veil"></div>
+      <div class="hl-body">
+        <div class="hl-num">01</div>
+        <div class="hl-name">Kudremukh A Trekkers Delight</div>
+        <div class="hl-desc">Kudremukh Trek — Coffee Ghiri sits at the base of the Kudremukh trail, making it perfect as a starting point. It's part of the Mullodi–Samse–Kalasa trekking region.</div>
+        <a href="activities.html" class="hl-link">Explore Activities <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-bg" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="hl-veil"></div>
+      <div class="hl-body">
+        <div class="hl-num">02</div>
+        <div class="hl-name">Food &amp; Stay Package</div>
+        <div class="hl-desc">"Member" package: ~₹1,300 for one day (3 meals + dinner), hot water, prayer camp in the evening, etc.</div>
+        <a href="facilities.html" class="hl-link">View Facilities <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+    <div class="hl-item">
+      <div class="hl-bg" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="hl-veil"></div>
+      <div class="hl-body">
+        <div class="hl-num">03</div>
+        <div class="hl-name">Scenic Photography Spots</div>
+        <div class="hl-desc">Beautiful views of Kalasa and surrounding coffee plantations — ideal for early morning shots.</div>
+        <a href="activities.html" class="hl-link">Explore Activities <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery-home">
+  <div class="gallery-home-head rv">
+    <div>
+      <p class="eyebrow">Photo Gallery</p>
+      <h2 class="h2">Through the <i>Lens</i></h2>
+    </div>
+    <a href="gallery.html" style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:3px;font-weight:400;transition:color .3s,border-color .3s" onmouseover="this.style.color='var(--gold)';this.style.borderColor='var(--gold)'" onmouseout="this.style.color='var(--ink)';this.style.borderColor='var(--ink)'">View Full Gallery →</a>
+  </div>
+  <div class="gallery-grid rv">
+    <div class="gi gi-tall"><div style="width:100%;height:100%;background:var(--forest-mid,#2D4A2A)"></div></div>
+    <div class="gi gi-sq"><div style="width:100%;height:100%;background:var(--forest-mid,#2D4A2A)"></div></div>
+    <div class="gi gi-sq"><div style="width:100%;height:100%;background:var(--forest-mid,#2D4A2A)"></div></div>
+    <div class="gi gi-sq"><div style="width:100%;height:100%;background:var(--forest-mid,#2D4A2A)"></div></div>
+    <div class="gi gi-sq"><div style="width:100%;height:100%;background:var(--forest-mid,#2D4A2A)"></div></div>
+  </div>
+</div>
+
+<!-- GOOGLE REVIEWS -->
+<section class="testimonials">
+  <div class="inner">
+
+    <!-- Header row: eyebrow + Google score block + view all -->
+    <div class="gr-header rv">
+      <div>
+        <p class="eyebrow">Google Reviews</p>
+        <h2 class="h2">What Our Guests <i>Say</i></h2>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px">
+        <div class="gr-score-block">
+          <!-- Google G logo -->
+          <div class="gr-logo">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            <span class="gr-logo-label">Google</span>
+          </div>
+          <div class="gr-score-divider"></div>
+          <div>
+            <div class="gr-rating-big">5.0</div>
+            <div class="gr-stars-row">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="gr-total">Based on Google Reviews</div>
+          </div>
+        </div>
+        <a href="https://search.google.com/local/reviews?placeid=ChIJ" target="_blank" class="gr-view-all">
+          View all on Google
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Review Cards -->
+    <div class="gr-grid rv">
+
+      <!-- Card 1 -->
+      <div class="gr-card">
+        <div class="gr-card-g">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+        <div class="gr-reviewer">
+          <div class="gr-avatar" style="background:#4285F4">N</div>
+          <div>
+            <div class="gr-reviewer-name">Nagaraj Hirekodi</div>
+            <div class="gr-reviewer-meta">Local Guide · Google</div>
+          </div>
+        </div>
+        <div class="gr-card-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="gr-card-quote">We had an amazing stay! The food was absolutely delicious, and everyone made us feel so welcome and … Read more</div>
+        <div class="gr-card-date">July 2025</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="gr-card">
+        <div class="gr-card-g">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+        <div class="gr-reviewer">
+          <div class="gr-avatar" style="background:#34A853">V</div>
+          <div>
+            <div class="gr-reviewer-name">Vittal Gurav</div>
+            <div class="gr-reviewer-meta">Google Review</div>
+          </div>
+        </div>
+        <div class="gr-card-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="gr-card-quote">Very nice hospitality humble staff and good location</div>
+        <div class="gr-card-date">July 2025</div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="gr-card">
+        <div class="gr-card-g">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+        <div class="gr-reviewer">
+          <div class="gr-avatar" style="background:#EA4335">K</div>
+          <div>
+            <div class="gr-reviewer-name">Kaana Darshan Aradhya</div>
+            <div class="gr-reviewer-meta">Google Review</div>
+          </div>
+        </div>
+        <div class="gr-card-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="gr-card-quote">I will give 10/10 for this Coffee Ghiri Homestay. We had spent 2 days here and everything felt more than worth. Very much satisfied with the service, especially food..and location is as mesmerizing and as pure as it really is... Overall great experience..💯🔥🥂</div>
+        <div class="gr-card-date">June 2025</div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="gr-card">
+        <div class="gr-card-g">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+        <div class="gr-reviewer">
+          <div class="gr-avatar" style="background:#FBBC04;color:#333">K</div>
+          <div>
+            <div class="gr-reviewer-name">KHUSHI Ak</div>
+            <div class="gr-reviewer-meta">Google Review</div>
+          </div>
+        </div>
+        <div class="gr-card-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="gr-card-quote">Very Good Service and Food is Excellent and Rooms is also Good</div>
+        <div class="gr-card-date">July 2025</div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="gr-card">
+        <div class="gr-card-g">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+        <div class="gr-reviewer">
+          <div class="gr-avatar" style="background:#8B6F47">V</div>
+          <div>
+            <div class="gr-reviewer-name">Vijay Kattimani</div>
+            <div class="gr-reviewer-meta">Google Review</div>
+          </div>
+        </div>
+        <div class="gr-card-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="gr-card-quote">Nice place very near to Kudremukha trekking point. Friendly staff, over very good stay option for th… Read more</div>
+        <div class="gr-card-date">July 2025</div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="gr-card">
+        <div class="gr-card-g">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+        <div class="gr-reviewer">
+          <div class="gr-avatar" style="background:#1A2B18">S</div>
+          <div>
+            <div class="gr-reviewer-name">Sunmathi Periyasamy</div>
+            <div class="gr-reviewer-meta">Google Review</div>
+          </div>
+        </div>
+        <div class="gr-card-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="gr-card-quote">We stayed here during our Kudremukh trekking trip with friends and had a wonderful experience. The rooms were well-maintained, clean, and comfortable. The owner was extremely kind, responsible, and made sure everything was taken care of.</div>
+        <div class="gr-card-date">June 2025</div>
+      </div>
+
+    </div><!-- end gr-grid -->
+
+    <!-- Bottom CTA -->
+    <div class="gr-bottom rv">
+      <a href="https://search.google.com/local/reviews" target="_blank" class="gr-write-btn">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Write a Google Review
+      </a>
+      <a href="contact.html" class="gr-write-btn" style="background:var(--forest);border-color:var(--forest);color:var(--gold)">
+        Book Your Stay →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<div class="platforms rv">
+  <div class="plat-inner">
+    <p class="plat-label">Rated on all major platforms</p>
+    <div class="plat-ratings">
+      <div class="pr"><div class="pr-num">4.5 / 5</div><div class="pr-name">GoIbibo</div></div>
+      <div class="pr"><div class="pr-num">5 ★</div><div class="pr-name">Google Reviews</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<section class="cta-banner rv">
+  <p class="eyebrow" style="justify-content:center"><span style="width:26px;height:1px;background:var(--gold);display:inline-block"></span> Plan Your Visit</p>
+  <h2 class="h2">Ready to Escape to <i>the Ghats?</i></h2>
+  <p>Contact our host Ganesh directly and he will personally curate your stay — from arrival planning to trek arrangements and home-cooked meals. We welcome trekkers, families, and groups.</p>
+  <div class="cta-row">
+    <a href="contact.html" class="btn-primary">Book Your Stay <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    <a href="activities.html" class="btn-secondary">View Activities</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <div class="ft-brand-name">Coffee <b>Ghiri</b> Homestay</div>
+      <div class="ft-tagline">"Back to Nature, Back to You"</div>
+      <p class="ft-desc">Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
+      <div class="ft-cert"><span>✓ Karnataka Tourism Certified</span></div>
+    </div>
+    <div class="ft-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="facilities.html">Facilities</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="gallery.html">Photo Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Activities</h4>
+      <ul>
+        <li><a href="activities.html">Kudremukh Trek</a></li>
+        <li><a href="activities.html">Coffee Plantation</a></li>
+        <li><a href="activities.html">Waterfall Visits</a></li>
+        <li><a href="activities.html">Bird Watching</a></li>
+        <li><a href="activities.html">Camping</a></li>
+        <li><a href="activities.html">Wildlife Spotting</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <address>
+        Coffee Ghiri Homestay<br>
+        Mullodi, Balagal, Kalasa<br>
+        Mudigere, Chikmagalur<br>
+        Karnataka — 577 124<br><br>
+        094811 54240<br>
+        ganeshvmullodi@gmail.com
+      </address>
+    </div>
+  </div>
+  <hr class="ft-divider">
+  <div class="ft-bottom">
+    <p class="ft-copy">© 2025 Coffee Ghiri Homestay · Mullodi, Chikmagalur · Karnataka Tourism Certified · Designed with ♥</p>
+    <div class="ft-social">
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+      <a href="https://wa.me/919481154240">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script src="cg-shared.js"></script>
+<script>
+const vid=document.querySelector('video');
+if(vid){vid.addEventListener('error',()=>{vid.style.display='none';document.getElementById('fallbackImg').style.display='block'});}
+</script>
+</body>
+</html>

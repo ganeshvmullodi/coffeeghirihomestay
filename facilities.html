@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facilities — Coffee Ghiri Homestay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="cg-shared.css">
+<style>
+/* FACILITIES GRID */
+.fac-main{background:var(--off-white)}
+.fac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:clamp(40px,6vw,72px)}
+.fc{position:relative;overflow:hidden;cursor:default;background:var(--warm-white);border:1px solid var(--stone-lt);transition:border-color .4s,transform .4s}
+.fc:hover{border-color:rgba(184,154,106,.5);transform:translateY(-5px)}
+.fc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.25,.46,.45,.94)}
+.fc:hover::after{transform:scaleX(1)}
+.fc-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .7s ease}
+.fc:hover .fc-img{transform:scale(1.04)}
+.fc-body{padding:clamp(22px,3vw,32px)}
+.fc-icon{width:44px;height:44px;border:1px solid var(--stone-lt);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:border-color .3s,background .3s}
+.fc:hover .fc-icon{border-color:var(--gold);background:var(--gold)}
+.fc-icon svg{width:20px;height:20px;stroke:var(--muted);fill:none;stroke-width:1.3;transition:stroke .3s}
+.fc:hover .fc-icon svg{stroke:var(--ink)}
+.fc-title{font-family:'Playfair Display',serif;font-size:clamp(18px,2.2vw,24px);font-weight:300;color:var(--ink);margin-bottom:12px}
+.fc-text{font-size:13px;color:var(--muted);line-height:1.85;font-weight:300}
+.fc-tag{display:inline-block;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,154,106,.3);padding:4px 10px;margin-top:14px;font-weight:400}
+
+/* FOOD SECTION */
+.food{background:var(--forest);position:relative;overflow:hidden}
+.food::before{content:'';position:absolute;inset:0;background:var(--forest-mid,#2D4A2A);opacity:.12}
+.food-inner{position:relative;z-index:1;max-width:1260px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,110px);align-items:center}
+.food-img{width:100%;height:clamp(360px,48vw,600px);object-fit:cover}
+.food-text .eyebrow{color:var(--gold)}
+.food-text .h2{color:var(--warm-white)}
+.food-text .h2 i{color:var(--gold-lt)}
+.food-text p{font-size:14px;color:rgba(200,191,180,.6);line-height:1.9;margin-top:18px;font-weight:300}
+.food-list{margin-top:clamp(24px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.fl-item{padding:clamp(14px,2.5vw,22px) clamp(14px,2vw,20px);background:rgba(250,248,245,.04);border:1px solid rgba(184,154,106,.1)}
+.fl-label{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:400}
+.fl-val{font-family:'Playfair Display',serif;font-size:clamp(14px,1.8vw,18px);color:var(--warm-white);font-weight:300}
+
+/* ROOMS */
+.rooms{background:var(--warm-white)}
+.rooms-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.rooms-imgs{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.ri{width:100%;aspect-ratio:3/4;object-fit:cover}
+.ri:first-child{margin-top:clamp(24px,4vw,48px)}
+.rooms-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:20px;font-weight:300}
+.rooms-text p strong{color:var(--ink);font-weight:400}
+.room-types{margin-top:clamp(28px,4vw,40px);display:flex;flex-direction:column;gap:2px}
+.rt{padding:clamp(16px,2.5vw,22px) clamp(18px,2.5vw,26px);border:1px solid var(--stone-lt);display:flex;align-items:center;justify-content:space-between;gap:16px;transition:border-color .3s,background .3s}
+.rt:hover{border-color:rgba(184,154,106,.4);background:var(--off-white)}
+.rt-name{font-family:'Playfair Display',serif;font-size:clamp(16px,1.8vw,20px);font-weight:300;color:var(--ink)}
+.rt-note{font-size:11px;color:var(--muted);margin-top:3px;font-weight:300}
+.rt-badge{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,154,106,.3);padding:5px 12px;white-space:nowrap;font-weight:400;flex-shrink:0}
+
+/* JEEP */
+.jeep{background:var(--off-white)}
+.jeep-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,110px);align-items:center}
+.jeep-img{width:100%;height:clamp(340px,45vw,560px);object-fit:cover}
+.jeep-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:20px;font-weight:300}
+.jeep-text p strong{color:var(--ink);font-weight:400}
+.jeep-points{margin-top:clamp(24px,4vw,36px);display:flex;flex-direction:column;gap:18px}
+.jp{display:flex;gap:16px;align-items:flex-start}
+.jp-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:7px}
+.jp-text{font-size:13px;color:var(--muted);line-height:1.8;font-weight:300}
+.jp-text strong{color:var(--ink);font-weight:400}
+
+/* BONFIRE */
+.bonfire{background:var(--ink);position:relative;overflow:hidden}
+.bonfire::before{content:'';position:absolute;inset:0;background:var(--forest-mid,#2D4A2A);opacity:.15}
+.bonfire-inner{position:relative;z-index:1;max-width:1260px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.bonfire-text .eyebrow{color:var(--gold)}
+.bonfire-text .h2{color:var(--warm-white)}
+.bonfire-text .h2 i{color:var(--gold-lt)}
+.bonfire-text p{font-size:14px;color:rgba(200,191,180,.6);line-height:1.9;margin-top:18px;font-weight:300}
+.bonfire-highlights{margin-top:clamp(24px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.bh{padding:clamp(18px,3vw,26px) clamp(14px,2.5vw,22px);background:rgba(250,248,245,.04);border:1px solid rgba(184,154,106,.1);text-align:center}
+.bh-icon{font-size:26px;margin-bottom:10px}
+.bh-title{font-family:'Playfair Display',serif;font-size:clamp(15px,1.8vw,18px);color:var(--warm-white);font-weight:300;margin-bottom:6px}
+.bh-text{font-size:11px;color:rgba(200,191,180,.45);font-weight:300;line-height:1.7}
+.bonfire-img{width:100%;height:clamp(340px,44vw,560px);object-fit:cover}
+
+/* POLICIES */
+.policies{background:var(--warm-white)}
+.pol-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(36px,6vw,80px);align-items:start;margin-top:clamp(36px,5vw,64px)}
+.pol-cards{display:grid;gap:2px}
+.pc{padding:clamp(18px,3vw,26px) clamp(18px,2.5vw,28px);background:var(--off-white);border-left:2px solid rgba(184,154,106,.25);transition:border-color .3s,background .3s}
+.pc:hover{border-color:var(--gold);background:var(--warm-white)}
+.pc-label{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400}
+.pc-val{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,20px);color:var(--ink);font-weight:300}
+.pc-note{font-size:11px;color:var(--muted);margin-top:5px;font-weight:300}
+.pol-info p{font-size:15px;color:var(--muted);line-height:1.9;font-weight:300;margin-top:20px}
+.pol-info p strong{color:var(--ink);font-weight:400}
+
+/* PACKAGES */
+.packages{background:var(--off-white)}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:clamp(36px,5vw,64px)}
+.pkg{padding:clamp(28px,4vw,48px) clamp(24px,3.5vw,36px);background:var(--warm-white);border:1px solid var(--stone-lt);position:relative;transition:border-color .4s,transform .4s}
+.pkg:hover{border-color:rgba(184,154,106,.5);transform:translateY(-6px)}
+.pkg-tag{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:400}
+.pkg-name{font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,28px);font-weight:300;color:var(--ink);margin-bottom:18px;line-height:1.2}
+.pkg-price{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:300;color:var(--gold);line-height:1}
+.pkg-per{font-size:11px;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:300;margin-top:4px}
+.pkg-divider{height:1px;background:var(--stone-lt);margin:22px 0}
+.pkg-features{display:flex;flex-direction:column;gap:10px}
+.pf{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted);font-weight:300;line-height:1.6}
+.pf::before{content:'';width:14px;height:1px;background:var(--gold);flex-shrink:0;margin-top:9px}
+.pkg-cta{display:block;text-align:center;margin-top:26px;padding:13px;border:1px solid var(--ink);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:all .3s;font-weight:400;cursor:none}
+.pkg-cta:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.pkg.featured{background:var(--forest);border-color:rgba(184,154,106,.4)}
+.pkg.featured .pkg-name{color:var(--warm-white)}
+.pkg.featured .pf{color:rgba(200,191,180,.55)}
+.pkg.featured .pkg-divider{background:rgba(184,154,106,.15)}
+.pkg.featured .pkg-cta{border-color:var(--gold);color:var(--gold)}
+.pkg.featured .pkg-cta:hover{background:var(--gold);color:var(--ink)}
+.pkg.featured .pkg-per{color:rgba(200,191,180,.4)}
+.pkg-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;white-space:nowrap;font-weight:500}
+
+@media(max-width:1024px){
+  .food-inner,.rooms-grid,.jeep-grid,.bonfire-inner{grid-template-columns:1fr}
+  .food-img,.jeep-img,.bonfire-img{height:clamp(260px,40vw,440px)}
+  .fac-grid{grid-template-columns:1fr 1fr}
+  .pkg-grid{grid-template-columns:1fr 1fr}
+  .pol-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .fac-grid{grid-template-columns:1fr}
+  .rooms-imgs{grid-template-columns:1fr 1fr}
+  .pkg-grid{grid-template-columns:1fr}
+  .food-list,.bonfire-highlights{grid-template-columns:1fr}
+  .km-facts{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<a href="https://wa.me/919481154240" class="wa" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" style="fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<nav id="nav" class="solid-nav" style="background:rgba(15,22,14,.97);padding:14px clamp(20px,5vw,64px)">
+  <a href="index.html" class="n-logo">
+    <div class="n-logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg></div>
+    <div class="n-logo-text">Coffee Ghiri<b>Homestay</b></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="facilities.html" class="active">Facilities</a></li>
+    <li><a href="activities.html">Activities</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="n-cta">Book Now</a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html" class="mob-link">Home</a>
+  <a href="about.html" class="mob-link">About</a>
+  <a href="facilities.html" class="mob-link">Facilities</a>
+  <a href="activities.html" class="mob-link">Activities</a>
+  <a href="gallery.html" class="mob-link">Gallery</a>
+  <a href="contact.html" class="mob-link">Contact</a>
+  <a href="contact.html" class="mob-link mob-cta">Book Now</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-bg">
+    <div style="width:100%;height:100%;background:var(--forest-mid,#2D4A2A)"></div>
+    <div class="page-hero-veil"></div>
+  </div>
+  <div class="page-hero-content">
+    <p class="page-hero-tag">What We Offer</p>
+    <h1 class="page-hero-h1">Our <i>Facilities</i></h1>
+  </div>
+</div>
+
+<div class="mq-wrap">
+  <div class="mq-track">
+    <div class="mq-item"><span>Malenadu Home-cooked Food</span><div class="mq-dot"></div><span>4×4 Jeep Service</span><div class="mq-dot"></div><span>Attached Washrooms</span><div class="mq-dot"></div><span>Free Breakfast</span><div class="mq-dot"></div><span>Avocado Bonfire</span><div class="mq-dot"></div><span>Kitchenette</span><div class="mq-dot"></div><span>Luggage Storage</span><div class="mq-dot"></div><span>Couple Rooms</span><div class="mq-dot"></div><span>Caretaker Support</span><div class="mq-dot"></div></div>
+    <div class="mq-item"><span>Malenadu Home-cooked Food</span><div class="mq-dot"></div><span>4×4 Jeep Service</span><div class="mq-dot"></div><span>Attached Washrooms</span><div class="mq-dot"></div><span>Free Breakfast</span><div class="mq-dot"></div><span>Avocado Bonfire</span><div class="mq-dot"></div><span>Kitchenette</span><div class="mq-dot"></div><span>Luggage Storage</span><div class="mq-dot"></div><span>Couple Rooms</span><div class="mq-dot"></div><span>Caretaker Support</span><div class="mq-dot"></div></div>
+  </div>
+</div>
+
+<!-- MAIN FACILITIES -->
+<section class="fac-main">
+  <div class="inner">
+    <div class="rv">
+      <p class="eyebrow">All Facilities</p>
+      <h2 class="h2">Everything You Need <i>in the Ghats</i></h2>
+    </div>
+    <div class="fac-grid">
+      <div class="fc rv d1">
+        <div class="fc-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+        <div class="fc-body">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+          <div class="fc-title">Authentic Malenadu Cuisine (Veg &amp; Non-Veg)</div>
+          <div class="fc-text">Savor the rich and flavorful dishes of Malenadu – a cuisine known for its spices, fresh ingredients, and homely touch. From hearty vegetarian meals to traditional non-veg delicacies, our kitchen serves authentic local food that completes your hillside retreat experience.</div>
+          <div class="fc-tag">Veg & Non-Veg Available</div>
+        </div>
+      </div>
+      <div class="fc rv d2">
+        <div class="fc-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+        <div class="fc-body">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div class="fc-title">4x4 Jeep Rides for Off-Road Adventures</div>
+          <div class="fc-text">Explore the rugged terrain and hidden trails of the Western Ghats with our 4×4 Jeep facility. These powerful vehicles are ideal for reaching remote viewpoints, waterfalls, and starting points of treks that regular vehicles can't access. It's a thrilling way to experience the wild beauty of the region.</div>
+          <div class="fc-tag">Available on Request</div>
+        </div>
+      </div>
+      <div class="fc rv d3">
+        <div class="fc-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+        <div class="fc-body">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="fc-title">Clean Attached Washrooms</div>
+          <div class="fc-text">We prioritize hygiene and comfort with clean, well-maintained attached washrooms in our accommodations. Whether you're staying in tents or rooms, you'll have private facilities ensuring convenience after long days of exploration.</div>
+          <div class="fc-tag">Hot Water Available</div>
+        </div>
+      </div>
+      <div class="fc rv d1">
+        <div class="fc-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+        <div class="fc-body">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+          <div class="fc-title">Private Rooms for Couples</div>
+          <div class="fc-text">For those seeking privacy and comfort, our couple rooms offer a peaceful retreat with all essential amenities. Ideal for romantic getaways or quiet relaxation, these rooms provide a cozy atmosphere amidst serene natural surroundings..</div>
+          <div class="fc-tag">Married Couples Only</div>
+        </div>
+      </div>
+      <div class="fc rv d2">
+        <div class="fc-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+        <div class="fc-body">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.54L4.3 20a24.7 24.7 0 002.52-2C8.39 19.72 9.43 21 12 21c6 0 10-5 10-10 0-2-1-4-5-3z"/><path d="M12 13c0 1.3-.84 2-2 2s-2-.84-2-2 .84-2 2-2 2 .84 2 2z"/></svg></div>
+          <div class="fc-title">Trek Passes to Kudremukh Peak</div>
+          <div class="fc-text">Planning to conquer the majestic Kudremukh Peak? We assist you in obtaining official trek permits, saving you the hassle. As the trek lies within a protected national park, permits are mandatory. We ensure a smooth process so you can focus on the adventure ahead..</div>
+          <div class="fc-tag">Permit Assistance</div>
+        </div>
+      </div>
+      <div class="fc rv d3">
+        <div class="fc-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+        <div class="fc-body">
+          <div class="fc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+          <div class="fc-title">Comfortable Tent Stays</div>
+          <div class="fc-text">Our spacious tents provide a close-to-nature stay without compromising on comfort. Equipped with cozy bedding and essentials, the tent accommodations let you enjoy the wilderness while staying safe and comfortable — perfect for nature lovers and adventure seekers.</div>
+          <div class="fc-tag">Nature-close Stay</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BONFIRE -->
+<section class="bonfire">
+  <div class="inner">
+    <div class="bonfire-inner">
+      <div class="bonfire-text rv-l">
+        <p class="eyebrow">Cozy Bonfire Evenings</p>
+        <h2 class="h2">Avocado Bonfires <i>& Prayer Camp</i></h2>
+        <p>Unwind under the starlit sky around a warm, crackling bonfire. It's the perfect setting to share stories, enjoy music, and bond with fellow travelers after a day of trekking or sightseeing.</p>
+        <p>Our bonfire nights are a highlight for guests seeking relaxation and a rustic experience in the lap of nature.</p>
+      </div>
+      <div class="rv-r">
+        <div class="bonfire-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-top">
+    <div>
+      <div class="ft-brand-name">Coffee <b>Ghiri</b> Homestay</div>
+      <div class="ft-tagline">"Back to Nature, Back to You"</div>
+      <p class="ft-desc">Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
+      <div class="ft-cert"><span>✓ Karnataka Tourism Certified</span></div>
+    </div>
+    <div class="ft-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="facilities.html">Facilities</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Facilities</h4>
+      <ul>
+        <li><a href="facilities.html">Malenadu Cuisine</a></li>
+        <li><a href="facilities.html">4×4 Jeep Service</a></li>
+        <li><a href="facilities.html">Avocado Bonfire</a></li>
+        <li><a href="facilities.html">Couple Rooms</a></li>
+        <li><a href="facilities.html">Tent Accommodation</a></li>
+        <li><a href="facilities.html">Packages & Pricing</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <address>Coffee Ghiri Homestay<br>Mullodi, Balagal, Kalasa<br>Mudigere, Chikmagalur<br>Karnataka — 577 124<br><br>094811 54240<br>ganeshvmullodi@gmail.com</address>
+    </div>
+  </div>
+  <hr class="ft-divider">
+  <div class="ft-bottom">
+    <p class="ft-copy">© 2025 Coffee Ghiri Homestay · Mullodi, Chikmagalur · Karnataka Tourism Certified</p>
+    <div class="ft-social"><a href="#">Facebook</a><a href="#">Instagram</a><a href="https://wa.me/919481154240">WhatsApp</a></div>
+  </div>
+</footer>
+<script src="cg-shared.js"></script>
+</body>
+</html>

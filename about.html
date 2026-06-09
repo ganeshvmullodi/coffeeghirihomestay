@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Coffee Ghiri Homestay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="cg-shared.css">
+<style>
+.about-story{background:var(--off-white)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:start}
+.story-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:20px;font-weight:300}
+.story-text p strong{color:var(--ink);font-weight:400}
+.pull-quote{margin:36px 0;padding:clamp(20px,3vw,32px) clamp(20px,3vw,36px);border-left:2px solid var(--gold);background:var(--warm-white)}
+.pull-quote p{font-family:'Playfair Display',serif;font-size:clamp(18px,2.5vw,26px);font-style:italic;color:var(--ink);line-height:1.5;font-weight:300}
+.pull-quote cite{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-top:12px;font-style:normal;font-weight:400}
+.story-aside{display:flex;flex-direction:column;gap:20px;padding-top:8px}
+.sa-img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.sa-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.sa-stat{padding:clamp(18px,3vw,28px) clamp(14px,2vw,22px);background:var(--warm-white);text-align:center}
+.sa-stat-n{font-family:'Playfair Display',serif;font-size:clamp(24px,3.5vw,40px);font-weight:300;color:var(--gold);line-height:1}
+.sa-stat-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:5px;font-weight:300}
+.sa-cert{padding:clamp(18px,3vw,26px);background:var(--forest);display:flex;align-items:center;gap:16px}
+.sa-cert-icon{width:44px;height:44px;border:1px solid rgba(184,154,106,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sa-cert-icon svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.2}
+.sa-cert-text{font-size:11px;color:rgba(200,191,180,.55);line-height:1.7;font-weight:300}
+.sa-cert-text strong{color:var(--gold-lt);font-weight:400;display:block;margin-bottom:2px}
+
+/* HOST */
+.host{background:var(--warm-white)}
+.host-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.host-img-wrap{position:relative}
+.host-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top}
+.host-badge{position:absolute;bottom:clamp(20px,3vw,32px);right:clamp(-10px,-2vw,-20px);background:var(--gold);padding:clamp(16px,2.5vw,24px) clamp(14px,2vw,20px);text-align:center}
+.hb-n{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:300;color:var(--ink);line-height:1}
+.hb-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft,#2A2520);font-family:'DM Sans',sans-serif;font-weight:500;margin-top:4px}
+.host-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:20px;font-weight:300}
+.host-text p strong{color:var(--ink);font-weight:400}
+.host-card{margin-top:clamp(28px,4vw,40px);padding:clamp(20px,3vw,30px);border:1px solid var(--stone-lt);display:flex;align-items:center;gap:20px}
+.hc-avatar{width:56px;height:56px;border-radius:50%;background:var(--forest);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:24px;color:var(--gold);flex-shrink:0}
+.hc-name{font-family:'Playfair Display',serif;font-size:clamp(18px,2.2vw,24px);font-weight:300;color:var(--ink)}
+.hc-role{font-size:11px;color:var(--muted);margin-top:3px;font-weight:300}
+.hc-since{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-top:6px;font-weight:400}
+
+/* KUDREMUKH INFO */
+.kudremukh{background:var(--forest);position:relative;overflow:hidden}
+.kudremukh::before{content:'';position:absolute;inset:0;background:var(--forest-mid,#2D4A2A);opacity:.1}
+.km-inner{position:relative;z-index:1;max-width:1260px;margin:0 auto}
+.km-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,110px);align-items:center;margin-top:clamp(40px,6vw,72px)}
+.km-img{width:100%;height:clamp(340px,45vw,580px);object-fit:cover}
+.km-text p{font-size:14px;color:rgba(200,191,180,.6);line-height:1.9;margin-top:18px;font-weight:300}
+.km-text .eyebrow{color:var(--gold)}
+.km-text .h2{color:var(--warm-white)}
+.km-text .h2 i{color:var(--gold-lt)}
+.km-facts{margin-top:clamp(28px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.kmf{padding:clamp(16px,2.5vw,24px) clamp(14px,2vw,20px);background:rgba(250,248,245,.04);border:1px solid rgba(184,154,106,.1)}
+.kmf-l{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:400}
+.kmf-v{font-family:'Playfair Display',serif;font-size:clamp(14px,1.8vw,18px);color:var(--warm-white);font-weight:300}
+
+/* SAMSE & SURROUNDINGS */
+.surroundings{background:var(--off-white)}
+.sur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,28px);margin-top:clamp(36px,5vw,60px)}
+.sur-item{padding:clamp(24px,3.5vw,36px);background:var(--warm-white);border:1px solid var(--stone-lt);position:relative;overflow:hidden;transition:border-color .3s,transform .4s;cursor:default}
+.sur-item:hover{border-color:rgba(184,154,106,.4);transform:translateY(-4px)}
+.sur-item::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.sur-item:hover::before{transform:scaleX(1)}
+.sur-num{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:300;color:var(--stone-lt);line-height:1;margin-bottom:16px}
+.sur-title{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,22px);font-weight:300;color:var(--ink);margin-bottom:10px}
+.sur-text{font-size:13px;color:var(--muted);line-height:1.8;font-weight:300}
+
+/* NETRAVATI */
+.netravati{background:var(--warm-white)}
+.net-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.net-imgs{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.net-img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.net-img:first-child{margin-top:clamp(24px,4vw,48px)}
+.net-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:20px;font-weight:300}
+
+@media(max-width:1024px){
+  .story-grid,.host-grid,.km-grid,.net-grid{grid-template-columns:1fr}
+  .host-img{aspect-ratio:16/9;object-position:center}
+  .host-badge{right:0}
+  .km-img{height:clamp(280px,40vw,440px)}
+  .net-imgs{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .sur-grid{grid-template-columns:1fr 1fr}
+  .km-facts{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .sur-grid{grid-template-columns:1fr}
+  .sa-stat-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<a href="https://wa.me/919481154240" class="wa" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" style="fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<nav id="nav" class="solid-nav" style="background:rgba(15,22,14,.97);padding:14px clamp(20px,5vw,64px)">
+  <a href="index.html" class="n-logo">
+    <div class="n-logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg></div>
+    <div class="n-logo-text">Coffee Ghiri<b>Homestay</b></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="facilities.html">Facilities</a></li>
+    <li><a href="activities.html">Activities</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="n-cta">Book Now</a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html" class="mob-link">Home</a>
+  <a href="about.html" class="mob-link">About</a>
+  <a href="facilities.html" class="mob-link">Facilities</a>
+  <a href="activities.html" class="mob-link">Activities</a>
+  <a href="gallery.html" class="mob-link">Gallery</a>
+  <a href="contact.html" class="mob-link">Contact</a>
+  <a href="contact.html" class="mob-link mob-cta">Book Now</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg">
+    <div style="width:100%;height:100%;background:var(--forest-mid,#2D4A2A)"></div>
+    <div class="page-hero-veil"></div>
+  </div>
+  <div class="page-hero-content">
+    <p class="page-hero-tag">Our Story</p>
+    <h1 class="page-hero-h1">About <i>Coffee Ghiri</i></h1>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <div class="mq-item"><span>960m Above Sea Level</span><div class="mq-dot"></div><span>Bordering Kudremukh National Park</span><div class="mq-dot"></div><span>Karnataka Tourism Certified</span><div class="mq-dot"></div><span>Established 2019</span><div class="mq-dot"></div><span>Samse Village Views</span><div class="mq-dot"></div><span>Coffee & Tea Plantations</span><div class="mq-dot"></div><span>Western Ghats · Karnataka</span><div class="mq-dot"></div></div>
+    <div class="mq-item"><span>960m Above Sea Level</span><div class="mq-dot"></div><span>Bordering Kudremukh National Park</span><div class="mq-dot"></div><span>Karnataka Tourism Certified</span><div class="mq-dot"></div><span>Established 2019</span><div class="mq-dot"></div><span>Samse Village Views</span><div class="mq-dot"></div><span>Coffee & Tea Plantations</span><div class="mq-dot"></div><span>Western Ghats · Karnataka</span><div class="mq-dot"></div></div>
+  </div>
+</div>
+
+<!-- OUR STORY -->
+<section class="about-story">
+  <div class="inner">
+    <div class="story-grid">
+      <div class="rv-l">
+        <p class="eyebrow">Who We Are</p>
+        <h2 class="h2">A Home in the <i>Rain-Washed Mountains</i></h2>
+        <p>Coffee-ghiri is situated overlooking the picturesque village of Samse, bordering the Kudremukh national park at an elevation of <strong>960 metres above sea level</strong>.</p>
+        <p>The village is spread out across a wide area and is sparsely populated. The Kudremukh national park on the borders of the village is a densely forested wildlife sanctuary, home to a wonderful variety of flora and fauna and is also a designated tiger reserve.</p>
+        <div class="pull-quote">
+          <p>"Leading out from coffee-ghiri is a Hikers paradise which comprise off several lovely walks along the hills, which shelter sparkling streams and unbelievable breath taking water cascades."</p>
+          <cite>— Coffee Ghiri Homestay</cite>
+        </div>
+        <p>Ironically, it remains as one of the last remaining biodiversity hotspots in the country. This is the location of Upasana Retreat.</p>
+        <p>Our resort is also surrounded by numerous hills with terraced tea gardens, coffee plantations and paddy fields.</p>
+      </div>
+      <div class="rv-r">
+        <div class="story-aside">
+          <div class="sa-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+          <div class="sa-stat-grid">
+            <div class="sa-stat"><div class="sa-stat-n">960m</div><div class="sa-stat-l">Elevation</div></div>
+            <div class="sa-stat"><div class="sa-stat-n">2019</div><div class="sa-stat-l">Est. Year</div></div>
+            <div class="sa-stat"><div class="sa-stat-n">4.5★</div><div class="sa-stat-l">GoIbibo</div></div>
+            <div class="sa-stat"><div class="sa-stat-n">126</div><div class="sa-stat-l">Google Reviews</div></div>
+          </div>
+          <div class="sa-cert">
+            <div class="sa-cert-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <div class="sa-cert-text"><strong>Karnataka Tourism Certified</strong>Officially certified by the Karnataka Tourism Department, Government of Karnataka. A verified mark of quality and trust.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOST SECTION -->
+<section class="host">
+  <div class="inner">
+    <div class="host-grid">
+      <div class="rv-l">
+        <div class="host-img-wrap">
+          <div class="host-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+          <div class="host-badge"><div class="hb-n">5+</div><div class="hb-l">Years of<br>Hosting</div></div>
+        </div>
+      </div>
+      <div class="rv-r">
+        <p class="eyebrow">Your Host</p>
+        <h2 class="h2">Meet <i>Ganesh</i></h2>
+        <p>Run by Ganesh, an amiable host who's been hosting since 2019. He manages the property alongside his family and staff, and stays on-site to assist guests.</p>
+        <p>Guests report smooth check-in/out, flexible policies, and a friendly on-site manager.</p>
+        <p>Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
+        <div class="host-card">
+          <div class="hc-avatar">G</div>
+          <div>
+            <div class="hc-name">Ganesh</div>
+            <div class="hc-role">Resident Host & Estate Manager · Coffee Ghiri Homestay</div>
+            <div class="hc-since">Hosting since 2019 · Always on-site · Fluent in Kannada & Hindi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SURROUNDINGS -->
+<section class="surroundings">
+  <div class="inner">
+    <div class="rv">
+      <p class="eyebrow">What Surrounds Us</p>
+      <h2 class="h2">Hills, Tea Gardens, <i>Waterfalls & More</i></h2>
+    </div>
+    <div class="sur-grid">
+      <div class="sur-item rv d1">
+        <div class="sur-num">01</div>
+        <div class="sur-title">Samse Tea Estate</div>
+        <div class="sur-text">Just a stone's throw away, the lush Samse Tea Estate offers a scenic walk through neatly manicured tea gardens. Learn about tea cultivation, enjoy peaceful strolls, and capture Instagram-worthy views.</div>
+      </div>
+      <div class="sur-item rv d2">
+        <div class="sur-num">02</div>
+        <div class="sur-title">Rani Jhari Viewpoint</div>
+        <div class="sur-text">Known for its panoramic valley views and mist-laced cliffs, Rani Jhari is a dramatic viewpoint that attracts both trekkers and nature photographers. The drive and final hike make for a memorable day trip.</div>
+      </div>
+      <div class="sur-item rv d3">
+        <div class="sur-num">03</div>
+        <div class="sur-title">Soormane Falls</div>
+        <div class="sur-text">Hidden within the forest, Soormane Falls is a secluded gem. The journey involves a scenic trek and a chance to experience untouched nature — ideal for explorers and waterfall chasers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--forest);padding:clamp(60px,8vw,100px) clamp(20px,5vw,80px);text-align:center;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(184,154,106,.08) 0%,transparent 65%);pointer-events:none"></div>
+  <div style="position:relative;z-index:1;max-width:700px;margin:0 auto" class="rv">
+    <p class="eyebrow" style="justify-content:center"><span style="width:26px;height:1px;background:var(--gold);display:inline-block;margin-right:14px"></span>Plan Your Visit</p>
+    <h2 class="h2" style="color:var(--warm-white);margin-bottom:clamp(16px,3vw,28px)">Come Experience <i>the Ghats</i></h2>
+    <p style="font-size:15px;color:rgba(200,191,180,.55);line-height:1.9;font-weight:300;margin-bottom:clamp(28px,4vw,44px)">Reach out to Ganesh directly. He will confirm your stay, help plan your arrival, and ensure your time at Coffee Ghiri is everything you hoped for — and more.</p>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+      <a href="contact.html" style="display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;text-decoration:none;padding:16px 36px;transition:all .4s;cursor:none;font-weight:400;border:1px solid var(--gold)">Book Now</a>
+      <a href="activities.html" style="display:inline-flex;align-items:center;gap:12px;background:transparent;color:var(--gold);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;text-decoration:none;padding:16px 36px;border:1px solid rgba(184,154,106,.4);transition:all .4s;cursor:none;font-weight:400">View Activities</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <div class="ft-brand-name">Coffee <b>Ghiri</b> Homestay</div>
+      <div class="ft-tagline">"Back to Nature, Back to You"</div>
+      <p class="ft-desc">Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
+      <div class="ft-cert"><span>✓ Karnataka Tourism Certified</span></div>
+    </div>
+    <div class="ft-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="facilities.html">Facilities</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="gallery.html">Photo Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="activities.html">Kudremukh Trek</a></li>
+        <li><a href="activities.html">Samse Tea Estate</a></li>
+        <li><a href="activities.html">Waterfall Visits</a></li>
+        <li><a href="activities.html">Bird Watching</a></li>
+        <li><a href="activities.html">Soormane Falls</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <address>Coffee Ghiri Homestay<br>Mullodi, Balagal, Kalasa<br>Mudigere, Chikmagalur<br>Karnataka — 577 124<br><br>094811 54240<br>ganeshvmullodi@gmail.com</address>
+    </div>
+  </div>
+  <hr class="ft-divider">
+  <div class="ft-bottom">
+    <p class="ft-copy">© 2025 Coffee Ghiri Homestay · Mullodi, Chikmagalur · Karnataka Tourism Certified</p>
+    <div class="ft-social"><a href="#">Facebook</a><a href="#">Instagram</a><a href="https://wa.me/919481154240">WhatsApp</a></div>
+  </div>
+</footer>
+<script src="cg-shared.js"></script>
+</body>
+</html>

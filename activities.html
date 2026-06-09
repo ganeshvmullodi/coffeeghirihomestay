@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activities — Coffee Ghiri Homestay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="cg-shared.css">
+<style>
+/* ACTIVITY HERO CARDS */
+.act-intro{background:var(--off-white)}
+.act-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,110px);align-items:center}
+.act-intro-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:20px;font-weight:300}
+.act-intro-text p strong{color:var(--ink);font-weight:400}
+.act-intro-img{width:100%;height:clamp(360px,50vw,600px);object-fit:cover}
+
+/* MAIN ACTIVITIES GRID */
+.activities-full{background:var(--warm-white)}
+.act-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:clamp(36px,5vw,64px)}
+.ac{position:relative;overflow:hidden;cursor:default}
+.ac-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
+.ac:hover .ac-img{transform:scale(1.06)}
+.ac-veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,22,14,.95) 0%,rgba(15,22,14,.1) 55%,transparent 100%);transition:background .5s}
+.ac:hover .ac-veil{background:linear-gradient(to top,rgba(15,22,14,.98) 0%,rgba(15,22,14,.2) 60%,transparent 100%)}
+.ac-body{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(18px,3vw,30px)}
+.ac-num{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400}
+.ac-name{font-family:'Playfair Display',serif;font-size:clamp(18px,2.2vw,26px);font-weight:300;color:var(--warm-white);line-height:1.15}
+.ac-desc{font-size:12px;color:rgba(212,188,150,.65);margin-top:8px;font-weight:300;line-height:1.75;max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .4s}
+.ac:hover .ac-desc{max-height:120px;opacity:1}
+.ac-tag{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(6px);transition:all .4s .05s}
+.ac:hover .ac-tag{opacity:1;transform:translateY(0)}
+.ac-tag svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:1.5}
+
+/* FEATURED TREK */
+.trek-feature{background:var(--forest);position:relative;overflow:hidden}
+.trek-feature::before{content:'';position:absolute;inset:0;background:var(--forest-mid,#2D4A2A);opacity:.15}
+.tf-inner{position:relative;z-index:1;max-width:1260px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,110px);align-items:center}
+.tf-img{width:100%;height:clamp(360px,48vw,620px);object-fit:cover}
+.tf-text .eyebrow{color:var(--gold)}
+.tf-text .h2{color:var(--warm-white)}
+.tf-text .h2 i{color:var(--gold-lt)}
+.tf-text p{font-size:14px;color:rgba(200,191,180,.6);line-height:1.9;margin-top:18px;font-weight:300}
+.tf-info{margin-top:clamp(24px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.tfi{padding:clamp(14px,2.5vw,22px);background:rgba(250,248,245,.04);border:1px solid rgba(184,154,106,.1)}
+.tfi-label{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:400}
+.tfi-val{font-family:'Playfair Display',serif;font-size:clamp(13px,1.6vw,17px);color:var(--warm-white);font-weight:300;line-height:1.4}
+.tf-steps{margin-top:clamp(24px,4vw,36px);display:flex;flex-direction:column;gap:16px}
+.ts{display:flex;gap:16px;align-items:flex-start}
+.ts-num{font-family:'Playfair Display',serif;font-size:13px;color:var(--gold);font-weight:300;flex-shrink:0;margin-top:2px;min-width:24px}
+.ts-title{font-size:13px;font-weight:400;color:var(--warm-white);margin-bottom:4px}
+.ts-desc{font-size:12px;color:rgba(200,191,180,.5);line-height:1.75;font-weight:300}
+
+/* SAMSE TEA */
+.samse{background:var(--off-white)}
+.samse-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.samse-imgs{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.si{width:100%;aspect-ratio:3/4;object-fit:cover}
+.si:first-child{margin-top:clamp(24px,4vw,48px)}
+.samse-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:20px;font-weight:300}
+.samse-text p strong{color:var(--ink);font-weight:400}
+.samse-tag{margin-top:28px;padding:clamp(18px,3vw,26px);background:var(--warm-white);border-left:2px solid var(--gold)}
+.st-eyebrow{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400}
+.st-text{font-family:'Playfair Display',serif;font-size:clamp(15px,1.8vw,20px);font-style:italic;font-weight:300;color:var(--ink);line-height:1.5}
+
+/* DETAILED ACTIVITIES LIST */
+.act-detail{background:var(--warm-white)}
+.adl{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:clamp(36px,5vw,64px)}
+.ad{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,36px);padding:clamp(24px,3.5vw,40px);background:var(--off-white);border:1px solid var(--stone-lt);align-items:start;transition:border-color .4s,transform .3s}
+.ad:hover{border-color:rgba(184,154,106,.4);transform:translateY(-3px)}
+.ad-num{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);font-weight:300;color:var(--stone-lt);line-height:1;transition:color .4s}
+.ad:hover .ad-num{color:rgba(184,154,106,.3)}
+.ad-title{font-family:'Playfair Display',serif;font-size:clamp(18px,2.2vw,24px);font-weight:300;color:var(--ink);margin-bottom:10px}
+.ad-text{font-size:13px;color:var(--muted);line-height:1.85;font-weight:300}
+.ad-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.ad-badge{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,154,106,.3);padding:4px 10px;font-weight:400}
+
+/* WILDLIFE */
+.wildlife{background:var(--ink);position:relative;overflow:hidden}
+.wildlife::before{content:'';position:absolute;inset:0;background:var(--forest-mid,#2D4A2A);opacity:.18}
+.wl-inner{position:relative;z-index:1;max-width:1260px;margin:0 auto}
+.wl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:clamp(36px,5vw,60px)}
+.wl-item{padding:clamp(24px,3.5vw,40px) clamp(20px,3vw,32px);border:1px solid rgba(184,154,106,.1);position:relative;overflow:hidden;transition:background .4s;cursor:default}
+.wl-item::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.wl-item:hover::after{transform:scaleX(1)}
+.wl-item:hover{background:rgba(184,154,106,.06)}
+.wl-icon{font-size:28px;margin-bottom:16px}
+.wl-title{font-family:'Playfair Display',serif;font-size:clamp(16px,2vw,20px);color:var(--warm-white);font-weight:300;margin-bottom:10px}
+.wl-text{font-size:12px;color:rgba(200,191,180,.45);line-height:1.8;font-weight:300}
+.wl-text .eyebrow{color:var(--gold)}
+.wl-text .h2{color:var(--warm-white)}
+.wl-text .h2 i{color:var(--gold-lt)}
+
+@media(max-width:1024px){
+  .act-intro-grid,.tf-inner,.samse-grid{grid-template-columns:1fr}
+  .tf-img{height:clamp(260px,40vw,440px)}
+  .act-grid{grid-template-columns:1fr 1fr}
+  .adl{grid-template-columns:1fr}
+  .wl-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .act-grid{grid-template-columns:1fr}
+  .tf-info{grid-template-columns:1fr 1fr}
+  .wl-grid{grid-template-columns:1fr 1fr}
+  .samse-imgs{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .wl-grid{grid-template-columns:1fr}
+  .tf-info{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<a href="https://wa.me/919481154240" class="wa" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" style="fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<nav id="nav" class="solid-nav" style="background:rgba(15,22,14,.97);padding:14px clamp(20px,5vw,64px)">
+  <a href="index.html" class="n-logo">
+    <div class="n-logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2C8 6 4 10 4 14a8 8 0 0016 0c0-4-4-8-8-12z"/></svg></div>
+    <div class="n-logo-text">Coffee Ghiri<b>Homestay</b></div>
+  </a>
+  <ul class="n-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="facilities.html">Facilities</a></li>
+    <li><a href="activities.html" class="active">Activities</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="n-cta">Book Now</a>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html" class="mob-link">Home</a>
+  <a href="about.html" class="mob-link">About</a>
+  <a href="facilities.html" class="mob-link">Facilities</a>
+  <a href="activities.html" class="mob-link">Activities</a>
+  <a href="gallery.html" class="mob-link">Gallery</a>
+  <a href="contact.html" class="mob-link">Contact</a>
+  <a href="contact.html" class="mob-link mob-cta">Book Now</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-bg">
+    <div style="width:100%;height:100%;background:var(--forest-mid,#2D4A2A)"></div>
+    <div class="page-hero-veil"></div>
+  </div>
+  <div class="page-hero-content">
+    <p class="page-hero-tag">Explore the Ghats</p>
+    <h1 class="page-hero-h1">Activities <i>& Experiences</i></h1>
+  </div>
+</div>
+
+<div class="mq-wrap">
+  <div class="mq-track">
+    <div class="mq-item"><span>Trekking</span><div class="mq-dot"></div><span>Samse Tea Estate</span><div class="mq-dot"></div><span>Waterfalls</span><div class="mq-dot"></div><span>Bird Watching</span><div class="mq-dot"></div><span>Camping</span><div class="mq-dot"></div><span>Wildlife Spotting</span><div class="mq-dot"></div><span>Kurinjal Peak</span><div class="mq-dot"></div><span>Rani Jhari Hill Peak</span><div class="mq-dot"></div><span>Scenic Photography</span><div class="mq-dot"></div><span>Bonfire</span><div class="mq-dot"></div><span>Fort Visit</span><div class="mq-dot"></div></div>
+    <div class="mq-item"><span>Trekking</span><div class="mq-dot"></div><span>Samse Tea Estate</span><div class="mq-dot"></div><span>Waterfalls</span><div class="mq-dot"></div><span>Bird Watching</span><div class="mq-dot"></div><span>Camping</span><div class="mq-dot"></div><span>Wildlife Spotting</span><div class="mq-dot"></div><span>Kurinjal Peak</span><div class="mq-dot"></div><span>Rani Jhari Hill Peak</span><div class="mq-dot"></div><span>Scenic Photography</span><div class="mq-dot"></div><span>Bonfire</span><div class="mq-dot"></div><span>Fort Visit</span><div class="mq-dot"></div></div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="act-intro">
+  <div class="inner">
+    <div class="act-intro-grid">
+      <div class="rv-l">
+        <p class="eyebrow">Activities</p>
+        <h2 class="h2">Explore the Untamed Beauty <i>Around Coffee Ghiri</i></h2>
+        <p>Nestled near the biodiversity-rich Kudremukh National Park, Coffee Ghiri is a gateway to some of the most stunning natural attractions and trekking trails in the Western Ghats. From majestic peaks to cascading waterfalls and vast tea estates, the surrounding landscape offers something for every nature lover, trekker, and photography enthusiast.</p>
+      </div>
+      <div class="rv-r">
+        <div class="act-intro-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL ACTIVITY GRID -->
+<section class="activities-full">
+  <div class="inner">
+    <div class="rv">
+      <p class="eyebrow">All Activities</p>
+      <h2 class="h2">9 Ways to <i>Explore</i></h2>
+    </div>
+  </div>
+  <div class="act-grid" style="margin-top:clamp(32px,5vw,56px)">
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">01</div>
+        <div class="ac-name">Kudremukh Peak Trek – 9 Kms</div>
+        <div class="ac-desc">One of the most sought-after treks in South India, the Kudremukh Peak trail leads you through rolling grasslands, misty valleys, and shola forests. The panoramic views from the summit are breathtaking, making the 9 km trek a must-do for adventure seekers.</div>
+        <div class="ac-tag">Full Day · Guide Required <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">02</div>
+        <div class="ac-name">Samse Tea Estate – 2 Kms</div>
+        <div class="ac-desc">Just a stone's throw away, the lush Samse Tea Estate offers a scenic walk through neatly manicured tea gardens. Learn about tea cultivation, enjoy peaceful strolls, and capture Instagram-worthy views.</div>
+        <div class="ac-tag">2–3 Hours · Self-guided <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">03</div>
+        <div class="ac-name">Somavathi Falls – 5 Kms</div>
+        <div class="ac-desc">Tucked amidst the forested hills, these twin waterfalls are perfect for a refreshing break. A short hike takes you to these serene spots, ideal for nature walks, photography, and quiet contemplation.</div>
+        <div class="ac-tag">Half Day · Jeep Recommended <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">04</div>
+        <div class="ac-name">Elaneer Falls – 4 Kms</div>
+        <div class="ac-desc">A picturesque waterfall surrounded by forest, Elaneer is perfect for a short morning or evening outing. It's an easy walk and ideal for families or groups looking to enjoy nature up close.</div>
+        <div class="ac-tag">Early Morning · Binoculars Advised <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">05</div>
+        <div class="ac-name">Mydadi Hill Point – 14 Kms</div>
+        <div class="ac-desc">A beautiful highland viewpoint, Mydadi offers spectacular sunrise and sunset views. It's a quiet, lesser-trodden destination perfect for photography or a romantic outing..</div>
+        <div class="ac-tag">Overnight · Tent Provided <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">06</div>
+        <div class="ac-name">Kudremukh Forest – 6 Kms</div>
+        <div class="ac-desc">A treasure trove of biodiversity, the Kudremukh forest is home to rich flora and fauna, including endemic birds and wildlife. Nature walks and forest drives here provide a deep connection with the wild.</div>
+        <div class="ac-tag">Evening Drive · Jeep Arranged <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">07</div>
+        <div class="ac-name">Kurinjal Peak – 7 Kms</div>
+        <div class="ac-desc">A relatively lesser-known trek, Kurinjal Peak offers a peaceful alternative to Kudremukh. The trail passes through dense vegetation and rewards you with sweeping views of the Western Ghats — perfect for those seeking solitude in nature.</div>
+        <div class="ac-tag">Full Day · Guide Recommended <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">08</div>
+        <div class="ac-name">Rani Jhari Hill Peak – 25 Kms</div>
+        <div class="ac-desc">Known for its panoramic valley views and mist-laced cliffs, Rani Jhari is a dramatic viewpoint that attracts both trekkers and nature photographers. The drive and final hike make for a memorable day trip.</div>
+        <div class="ac-tag">Half Day · Scenic Drive <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+    <div class="ac">
+      <div class="ac-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+      <div class="ac-veil"></div>
+      <div class="ac-body">
+        <div class="ac-num">09</div>
+        <div class="ac-name">Soormane Falls – 10 Kms</div>
+        <div class="ac-desc">Hidden within the forest, Soormane Falls is a secluded gem. The journey involves a scenic trek and a chance to experience untouched nature — ideal for explorers and waterfall chasers.</div>
+        <div class="ac-tag">Dawn to Dusk · Any Skill Level <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAMSE TEA ESTATE -->
+<section class="samse">
+  <div class="inner">
+    <div class="samse-grid">
+      <div class="rv-l">
+        <p class="eyebrow">Samse Tea Estate – 2 Kms</p>
+        <h2 class="h2">Samse Tea <i>Estate</i></h2>
+        <p>Just a stone's throw away, the lush Samse Tea Estate offers a scenic walk through neatly manicured tea gardens. Learn about tea cultivation, enjoy peaceful strolls, and capture Instagram-worthy views.</p>
+      </div>
+      <div class="rv-r">
+        <div class="samse-imgs">
+          <div class="si" style="background:var(--forest-mid,#2D4A2A)"></div>
+          <div class="si" style="margin-top:clamp(24px,4vw,48px);background:var(--forest-mid,#2D4A2A)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--off-white);padding:clamp(60px,8vw,100px) clamp(20px,5vw,80px);text-align:center">
+  <div style="max-width:700px;margin:0 auto" class="rv">
+    <p class="eyebrow" style="justify-content:center"><span style="width:26px;height:1px;background:var(--gold);display:inline-block;margin-right:14px"></span>Ready to Explore?</p>
+    <h2 class="h2" style="margin-bottom:clamp(16px,3vw,28px)">Let Ganesh Plan Your <i>Adventure</i></h2>
+    <p style="font-size:15px;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:clamp(28px,4vw,44px)">Contact our host directly and he will arrange your treks, guides, jeep transfers, and permits — everything you need for the perfect Kudremukh experience.</p>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+      <a href="contact.html" style="display:inline-flex;align-items:center;gap:12px;background:var(--forest);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;text-decoration:none;padding:16px 36px;cursor:none;font-weight:400;border:1px solid var(--forest);transition:all .4s">Book Now</a>
+      <a href="facilities.html" style="display:inline-flex;align-items:center;gap:12px;background:transparent;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;text-decoration:none;padding:16px 36px;border:1px solid var(--stone);cursor:none;font-weight:400;transition:all .4s">View Facilities</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-top">
+    <div>
+      <div class="ft-brand-name">Coffee <b>Ghiri</b> Homestay</div>
+      <div class="ft-tagline">"Back to Nature, Back to You"</div>
+      <p class="ft-desc">Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
+      <div class="ft-cert"><span>✓ Karnataka Tourism Certified</span></div>
+    </div>
+    <div class="ft-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="facilities.html">Facilities</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Top Activities</h4>
+      <ul>
+        <li><a href="activities.html">Kudremukh Trek</a></li>
+        <li><a href="activities.html">Samse Tea Estate</a></li>
+        <li><a href="activities.html">Soormane Falls</a></li>
+        <li><a href="activities.html">Kurinjal Peak</a></li>
+        <li><a href="activities.html">Bird Watching</a></li>
+        <li><a href="activities.html">Wildlife Safari</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <address>Coffee Ghiri Homestay<br>Mullodi, Balagal, Kalasa<br>Mudigere, Chikmagalur<br>Karnataka — 577 124<br><br>094811 54240<br>ganeshvmullodi@gmail.com</address>
+    </div>
+  </div>
+  <hr class="ft-divider">
+  <div class="ft-bottom">
+    <p class="ft-copy">© 2025 Coffee Ghiri Homestay · Mullodi, Chikmagalur · Karnataka Tourism Certified</p>
+    <div class="ft-social"><a href="#">Facebook</a><a href="#">Instagram</a><a href="https://wa.me/919481154240">WhatsApp</a></div>
+  </div>
+</footer>
+<script src="cg-shared.js"></script>
+</body>
+</html>
