@@ -43,8 +43,9 @@
 
 /* INTRO */
 .intro{background:var(--off-white)}
-.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:center}
+.intro-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,7vw,90px);align-items:start}
 .intro-text p{font-size:15px;line-height:1.95;color:var(--muted);margin-top:22px;font-weight:300}
+.intro-text p:first-child{margin-top:0}
 .intro-text p strong{color:var(--ink);font-weight:400}
 .intro-links{display:flex;gap:16px;flex-wrap:wrap;margin-top:36px}
 .il{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:400;padding:12px 24px;transition:all .3s;cursor:none}
@@ -250,20 +251,14 @@
       <div class="rv-l">
         <p class="eyebrow">Welcome To</p>
         <h2 class="h2">Coffee-Ghiri <i>Home Stay</i></h2>
+      </div>
+      <div class="rv-r intro-text">
         <p>Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
         <p><strong>Blend of rustic and modern:</strong> Enjoy the feel of nature with cozy nights and modern comforts. Facilities include avocado bonfires, home-style Malenadu cooking, caretaker support, luggage storage, kitchenette, and free breakfast.</p>
         <p><strong>Host &amp; Hospitality:</strong> Run by Ganesh, an amiable host who's been hosting since 2019. He manages the property alongside his family and staff, and stays on-site to assist guests. Guests report smooth check-in/out, flexible policies, and a friendly on-site manager.</p>
         <div class="intro-links">
           <a href="about.html" class="il il-primary">Our Story <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
           <a href="facilities.html" class="il il-secondary">Facilities <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-        </div>
-      </div>
-      <div class="rv-r">
-        <div class="intro-imgs">
-          <div class="im-main" style="background:var(--forest-mid,#2D4A2A)"></div>
-          <div class="im-sub" style="background:var(--forest-mid,#2D4A2A)"></div>
-          <div class="im-cert">Karnataka Tourism Certified</div>
-          <div class="im-badge"><div class="im-badge-n">960m</div><div class="im-badge-l">Elevation</div></div>
         </div>
       </div>
     </div>
