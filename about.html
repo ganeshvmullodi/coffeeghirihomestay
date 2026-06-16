@@ -35,7 +35,7 @@
 .host{background:var(--warm-white)}
 .host-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:center}
 .host-img-wrap{position:relative}
-.host-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top}
+.host-img{width:100%;height:auto;display:block}
 .host-badge{position:absolute;bottom:clamp(20px,3vw,32px);right:clamp(-10px,-2vw,-20px);background:var(--gold);padding:clamp(16px,2.5vw,24px) clamp(14px,2vw,20px);text-align:center}
 .hb-n{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:300;color:var(--ink);line-height:1}
 .hb-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft,#2A2520);font-family:'DM Sans',sans-serif;font-weight:500;margin-top:4px}
@@ -83,7 +83,6 @@
 
 @media(max-width:1024px){
   .story-grid,.host-grid,.km-grid,.net-grid{grid-template-columns:1fr}
-  .host-img{aspect-ratio:16/9;object-position:center}
   .host-badge{right:0}
   .km-img{height:clamp(280px,40vw,440px)}
   .net-imgs{grid-template-columns:1fr 1fr}
@@ -192,7 +191,7 @@
     <div class="host-grid">
       <div class="rv-l">
         <div class="host-img-wrap">
-          <div class="host-img" style="background:var(--forest-mid,#2D4A2A)"></div>
+          <img class="host-img" src="images/about-host.jpg" alt="Ganesh with his family at Coffee Ghiri Homestay" loading="lazy">
           <div class="host-badge"><div class="hb-n">5+</div><div class="hb-l">Years of<br>Hosting</div></div>
         </div>
       </div>
