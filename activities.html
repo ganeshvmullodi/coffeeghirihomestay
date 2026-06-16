@@ -18,7 +18,7 @@
 /* MAIN ACTIVITIES GRID */
 .activities-full{background:var(--warm-white)}
 .act-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:clamp(36px,5vw,64px)}
-.ac{position:relative;overflow:hidden;cursor:default}
+.ac{position:relative;overflow:hidden;cursor:default;scroll-margin-top:90px}
 .ac-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
 .ac:hover .ac-img{transform:scale(1.06)}
 .ac-veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,22,14,.95) 0%,rgba(15,22,14,.1) 55%,transparent 100%);transition:background .5s}
@@ -185,7 +185,7 @@
     </div>
   </div>
   <div class="act-grid" style="margin-top:clamp(32px,5vw,56px)">
-    <div class="ac">
+    <div class="ac" id="kudremukh-peak-trek">
       <img class="ac-img" src="images/act-kudremukh-trek.jpg" alt="Kudremukh Peak Trek" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -195,7 +195,7 @@
         <div class="ac-tag">Full Day · Guide Required <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
-    <div class="ac">
+    <div class="ac" id="samse-tea-estate">
       <img class="ac-img" src="images/act-samse-tea.jpg" alt="Samse Tea Estate" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -205,7 +205,7 @@
         <div class="ac-tag">2–3 Hours · Self-guided <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
-    <div class="ac">
+    <div class="ac" id="somavathi-falls">
       <img class="ac-img" src="images/act-somavathi-falls.jpg" alt="Somavathi Falls" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -215,7 +215,7 @@
         <div class="ac-tag">Half Day · Jeep Recommended <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
-    <div class="ac">
+    <div class="ac" id="elaneer-falls">
       <img class="ac-img" src="images/act-elaneer-falls.jpg" alt="Elaneer Falls" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -225,7 +225,7 @@
         <div class="ac-tag">Early Morning · Binoculars Advised <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
-    <div class="ac">
+    <div class="ac" id="mydadi-hill-point">
       <img class="ac-img" src="images/act-mydadi-hill.jpg" alt="Mydadi Hill Point" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -235,7 +235,7 @@
         <div class="ac-tag">Overnight · Tent Provided <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
-    <div class="ac">
+    <div class="ac" id="kudremukh-forest">
       <img class="ac-img" src="images/act-kudremukh-forest.jpg" alt="Kudremukh Forest" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -245,7 +245,7 @@
         <div class="ac-tag">Evening Drive · Jeep Arranged <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
-    <div class="ac">
+    <div class="ac" id="kurinjal-peak">
       <img class="ac-img" src="images/act-kurinjal-peak.jpg" alt="Kurinjal Peak" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -255,7 +255,7 @@
         <div class="ac-tag">Full Day · Guide Recommended <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
-    <div class="ac">
+    <div class="ac" id="rani-jhari-hill-peak">
       <img class="ac-img" src="images/act-ranijhari.jpg" alt="Rani Jhari Hill Peak" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -265,7 +265,7 @@
         <div class="ac-tag">Half Day · Scenic Drive <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
-    <div class="ac">
+    <div class="ac" id="soormane-falls">
       <img class="ac-img" src="images/act-soormane-falls.jpg" alt="Soormane Falls" loading="lazy">
       <div class="ac-veil"></div>
       <div class="ac-body">
@@ -312,12 +312,12 @@
     <div class="ft-col">
       <h4>Top Activities</h4>
       <ul>
-        <li><a href="activities.html">Kudremukh Trek</a></li>
-        <li><a href="activities.html">Samse Tea Estate</a></li>
-        <li><a href="activities.html">Soormane Falls</a></li>
-        <li><a href="activities.html">Kurinjal Peak</a></li>
-        <li><a href="activities.html">Bird Watching</a></li>
-        <li><a href="activities.html">Wildlife Safari</a></li>
+        <li><a href="activities.html#kudremukh-peak-trek">Kudremukh Peak Trek</a></li>
+        <li><a href="activities.html#samse-tea-estate">Samse Tea Estate</a></li>
+        <li><a href="activities.html#somavathi-falls">Somavathi Falls</a></li>
+        <li><a href="activities.html#mydadi-hill-point">Mydadi Hill Point</a></li>
+        <li><a href="activities.html#kurinjal-peak">Kurinjal Peak</a></li>
+        <li><a href="activities.html#soormane-falls">Soormane Falls</a></li>
       </ul>
     </div>
     <div class="ft-col">
