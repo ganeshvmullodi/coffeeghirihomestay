@@ -65,7 +65,7 @@
 /* HIGHLIGHTS */
 .highlights{background:var(--warm-white)}
 .hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:clamp(36px,5vw,64px)}
-.hl-item{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:none}
+.hl-item{position:relative;overflow:hidden;aspect-ratio:3/2;cursor:none;background:#0f160e}
 .hl-bg{position:absolute;inset:0;transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
 .hl-item:hover .hl-bg{transform:scale(1.06)}
 .hl-veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,22,14,.92) 0%,rgba(15,22,14,.1) 55%,transparent 100%)}
@@ -280,7 +280,7 @@
   </div>
   <div class="hl-grid" style="margin-top:clamp(32px,5vw,60px)">
     <div class="hl-item">
-      <div class="hl-bg" style="background:url('images/highlight-kudremukh-trek.jpg') center/cover"></div>
+      <div class="hl-bg" style="background:url('images/highlight-kudremukh-trek.jpg') center/contain no-repeat"></div>
       <div class="hl-veil"></div>
       <div class="hl-body">
         <div class="hl-num">01</div>
@@ -290,7 +290,7 @@
       </div>
     </div>
     <div class="hl-item">
-      <div class="hl-bg" style="background:url('images/highlight-food-stay.jpg') center/cover"></div>
+      <div class="hl-bg" style="background:url('images/highlight-food-stay.jpg') center/contain no-repeat"></div>
       <div class="hl-veil"></div>
       <div class="hl-body">
         <div class="hl-num">02</div>
@@ -300,7 +300,7 @@
       </div>
     </div>
     <div class="hl-item">
-      <div class="hl-bg" style="background:url('images/highlight-photography.jpg') center/cover"></div>
+      <div class="hl-bg" style="background:url('images/highlight-photography.jpg') center/contain no-repeat"></div>
       <div class="hl-veil"></div>
       <div class="hl-body">
         <div class="hl-num">03</div>
