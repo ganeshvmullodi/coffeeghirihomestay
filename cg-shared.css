@@ -82,7 +82,10 @@ section{padding:var(--sp) clamp(20px,5vw,80px)}
 .waf-field label{display:block;font-size:11px;color:#5b5b5b;margin-bottom:5px;font-weight:500}
 .waf-field input,.waf-field textarea{width:100%;border:1px solid #dcdcdc;border-radius:10px;padding:11px 13px;font-size:13.5px;font-family:inherit;color:#1c1c1c;background:#fafafa;transition:border-color .2s,background .2s;cursor:text;resize:none}
 .waf-field input:focus,.waf-field textarea:focus{outline:none;border-color:#09816D;background:#fff}
+.waf-field input[type="date"],.waf-field input[type="number"]{cursor:pointer}
 .waf-field textarea{min-height:64px}
+.waf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.waf-row .waf-field{margin-bottom:11px}
 .waf-err{color:#d23b3b;font-size:11px;margin-top:4px;display:none}
 .waf-field.invalid input,.waf-field.invalid textarea{border-color:#d23b3b;background:#fff}
 .waf-field.invalid .waf-err{display:block}

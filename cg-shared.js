@@ -46,6 +46,11 @@ document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>obs.observe(el));
     '<div class="waf-field" data-f="name"><label>Name</label><input type="text" name="name" placeholder="Enter your Name" autocomplete="name"><div class="waf-err">Please enter your name</div></div>'+
     '<div class="waf-field" data-f="email"><label>Email</label><input type="email" name="email" placeholder="Enter your Email" autocomplete="email"><div class="waf-err">Please enter a valid email</div></div>'+
     '<div class="waf-field" data-f="phone"><label>Phone</label><input type="tel" name="phone" placeholder="Enter your Phone" autocomplete="tel"><div class="waf-err">Please enter your phone number</div></div>'+
+    '<div class="waf-field" data-f="adults"><label>Number of Adults</label><input type="number" name="adults" min="1" max="30" inputmode="numeric" placeholder="e.g. 2"><div class="waf-err">Please enter number of adults</div></div>'+
+    '<div class="waf-row">'+
+    '<div class="waf-field" data-f="checkin"><label>Check-in Date</label><input type="date" name="checkin"><div class="waf-err">Select a date</div></div>'+
+    '<div class="waf-field" data-f="checkout"><label>Check-out Date</label><input type="date" name="checkout"><div class="waf-err">Select a valid date</div></div>'+
+    '</div>'+
     '<div class="waf-field" data-f="message"><label>Message <span style="color:#aaa;font-weight:400">(optional)</span></label><textarea name="message" placeholder="Enter your Message"></textarea></div>'+
     '<button type="submit" class="waf-submit">'+ICON+'Send on WhatsApp</button></form></div>';
   document.body.appendChild(wrap);
@@ -56,6 +61,16 @@ document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>obs.observe(el));
   const grp=k=>form.querySelector('[data-f="'+k+'"]');
   const open=num=>{if(num)waNumber=num;wrap.classList.add('open');setTimeout(()=>fld('name').focus(),140);};
   const close=()=>wrap.classList.remove('open');
+
+  // dates can't be in the past; check-out can't precede check-in
+  const today=new Date().toISOString().slice(0,10);
+  fld('checkin').min=today;fld('checkout').min=today;
+  fld('checkin').addEventListener('change',()=>{
+    fld('checkout').min=fld('checkin').value||today;
+    if(fld('checkout').value&&fld('checkout').value<fld('checkin').value)fld('checkout').value='';
+  });
+  const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmtDate=v=>{if(!v)return '';const p=v.split('-');return p[2]+' '+MONTHS[+p[1]-1]+' '+p[0];};
 
   document.querySelectorAll('a[href*="wa.me"],a[href*="api.whatsapp.com"],a[href*="whatsapp.com/send"]').forEach(a=>{
     a.addEventListener('click',e=>{
@@ -72,13 +87,16 @@ document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>obs.observe(el));
 
   form.addEventListener('submit',e=>{
     e.preventDefault();
-    const name=fld('name').value.trim(),email=fld('email').value.trim(),phone=fld('phone').value.trim(),message=fld('message').value.trim();
+    const name=fld('name').value.trim(),email=fld('email').value.trim(),phone=fld('phone').value.trim(),adults=fld('adults').value.trim(),checkin=fld('checkin').value,checkout=fld('checkout').value,message=fld('message').value.trim();
     let ok=true;
     grp('name').classList.toggle('invalid',!name);if(!name)ok=false;
     const emailOk=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);grp('email').classList.toggle('invalid',!emailOk);if(!emailOk)ok=false;
     grp('phone').classList.toggle('invalid',phone.replace(/\D/g,'').length<7);if(phone.replace(/\D/g,'').length<7)ok=false;
+    grp('adults').classList.toggle('invalid',!(parseInt(adults,10)>=1));if(!(parseInt(adults,10)>=1))ok=false;
+    grp('checkin').classList.toggle('invalid',!checkin);if(!checkin)ok=false;
+    const coBad=!checkout||(checkin&&checkout<checkin);grp('checkout').classList.toggle('invalid',coBad);if(coBad)ok=false;
     if(!ok)return;
-    const text='Name: '+name+'\nEmail: '+email+'\nPhone: '+phone+'\nMessage: '+message;
+    const text='Name: '+name+'\nEmail: '+email+'\nPhone: '+phone+'\nNumber of Adults: '+adults+'\nCheck-in: '+fmtDate(checkin)+'\nCheck-out: '+fmtDate(checkout)+'\nMessage: '+message;
     window.open('https://wa.me/'+waNumber+'?text='+encodeURIComponent(text),'_blank');
     close();form.reset();
   });
