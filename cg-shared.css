@@ -65,6 +65,35 @@ section{padding:var(--sp) clamp(20px,5vw,80px)}
 .wa svg{width:26px;height:26px;fill:#ffffff !important;color:#ffffff;display:block;flex-shrink:0}
 .wa svg *{fill:#ffffff !important}
 
+/* WHATSAPP FORM MODAL */
+.waf-overlay{position:fixed;inset:0;z-index:400;background:rgba(10,16,9,.55);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;cursor:auto}
+.waf-overlay.open{opacity:1;visibility:visible}
+.waf-card{position:fixed;right:clamp(16px,3vw,30px);bottom:calc(clamp(20px,3vw,30px) + 66px);width:min(360px,calc(100vw - 32px));max-height:calc(100vh - 110px);overflow-y:auto;background:#fff;border-radius:18px;box-shadow:0 18px 60px rgba(0,0,0,.4);font-family:'DM Sans',sans-serif;cursor:auto;transform:translateY(16px) scale(.97);opacity:0;transition:transform .32s cubic-bezier(.22,1,.36,1),opacity .32s}
+.waf-overlay.open .waf-card{transform:translateY(0) scale(1);opacity:1}
+.waf-head{background:#09816D;padding:16px 18px;display:flex;align-items:center;gap:12px;position:relative;border-radius:18px 18px 0 0}
+.waf-head-icon{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.waf-head-icon svg{width:22px;height:22px;fill:#fff}
+.waf-head-txt b{display:block;color:#fff;font-size:15px;font-weight:600;letter-spacing:.2px}
+.waf-head-txt span{display:block;color:rgba(255,255,255,.82);font-size:11px;margin-top:2px}
+.waf-close{position:absolute;top:12px;right:12px;width:26px;height:26px;border:none;background:rgba(255,255,255,.16);color:#fff;border-radius:50%;font-size:17px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.waf-close:hover{background:rgba(255,255,255,.34)}
+.waf-body{padding:16px 18px 18px}
+.waf-field{margin-bottom:11px}
+.waf-field label{display:block;font-size:11px;color:#5b5b5b;margin-bottom:5px;font-weight:500}
+.waf-field input,.waf-field textarea{width:100%;border:1px solid #dcdcdc;border-radius:10px;padding:11px 13px;font-size:13.5px;font-family:inherit;color:#1c1c1c;background:#fafafa;transition:border-color .2s,background .2s;cursor:text;resize:none}
+.waf-field input:focus,.waf-field textarea:focus{outline:none;border-color:#09816D;background:#fff}
+.waf-field textarea{min-height:64px}
+.waf-err{color:#d23b3b;font-size:11px;margin-top:4px;display:none}
+.waf-field.invalid input,.waf-field.invalid textarea{border-color:#d23b3b;background:#fff}
+.waf-field.invalid .waf-err{display:block}
+.waf-submit{width:100%;background:#09816D;color:#fff;border:none;border-radius:11px;padding:13px;font-size:14px;font-weight:600;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;transition:background .2s,transform .12s;margin-top:5px}
+.waf-submit:hover{background:#0a937c}
+.waf-submit:active{transform:scale(.98)}
+.waf-submit svg{width:18px;height:18px;fill:#fff}
+@media(max-width:480px){
+  .waf-card{left:16px;right:16px;width:auto;bottom:16px;max-height:calc(100vh - 32px)}
+}
+
 /* MARQUEE */
 .mq-wrap{background:var(--forest);overflow:hidden;border-top:1px solid rgba(184,154,106,.12);border-bottom:1px solid rgba(184,154,106,.12);padding:16px 0}
 .mq-track{display:flex;width:max-content;animation:mqs 32s linear infinite}
