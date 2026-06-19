@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Coffee Ghiri Homestay</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#09816D;--ink:#16231a;--bg:#f4f6f4;--card:#fff;--line:#e3e7e3;--muted:#6b756c;--gold:#B89A6A;--danger:#d23b3b}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+button{font-family:inherit;cursor:pointer}
+input,textarea,select{font-family:inherit}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(160deg,#0f2018,#16231a)}
+.login-card{background:#fff;border-radius:16px;padding:34px 30px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-logo{font-weight:700;font-size:18px;color:var(--ink);text-align:center;margin-bottom:4px}
+.login-logo b{color:var(--gold)}
+.login-sub{text-align:center;color:var(--muted);font-size:13px;margin-bottom:24px}
+.login-card label{display:block;font-size:12px;font-weight:500;color:#444;margin:14px 0 6px}
+.login-card input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:9px;font-size:14px;background:#fafbfa}
+.login-card input:focus{outline:none;border-color:var(--green)}
+.login-btn{width:100%;margin-top:22px;background:var(--green);color:#fff;border:none;padding:13px;border-radius:9px;font-size:14px;font-weight:600}
+.login-btn:hover{background:#0a937c}
+.login-err{color:var(--danger);font-size:13px;margin-top:14px;text-align:center;min-height:18px}
+
+/* APP */
+.app{display:none}
+.topbar{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,4vw,32px)}
+.topbar-l{font-weight:600;font-size:15px}
+.topbar-l b{color:var(--gold)}
+.topbar-r{display:flex;align-items:center;gap:14px;font-size:13px;color:rgba(255,255,255,.7)}
+.logout{background:rgba(255,255,255,.12);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500}
+.logout:hover{background:rgba(255,255,255,.22)}
+.tabs{position:sticky;top:50px;z-index:15;background:#fff;border-bottom:1px solid var(--line);display:flex;gap:2px;overflow-x:auto;padding:0 clamp(8px,3vw,24px)}
+.tab{background:none;border:none;padding:14px 16px;font-size:13px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+.tab.active{color:var(--green);border-bottom-color:var(--green)}
+.wrap{max-width:920px;margin:0 auto;padding:clamp(16px,4vw,32px)}
+.head-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+.head-row h2{font-size:20px;font-weight:600}
+.head-row .hint{font-size:13px;color:var(--muted);font-weight:400}
+.add-btn{background:var(--green);color:#fff;border:none;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:600}
+.add-btn:hover{background:#0a937c}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px;margin-bottom:16px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.card-title{font-size:15px;font-weight:600}
+.card-badge{font-size:11px;color:var(--muted);background:#eef1ee;padding:3px 9px;border-radius:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{margin-bottom:12px}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-size:12px;font-weight:500;color:#555;margin-bottom:5px}
+.field input[type=text],.field input[type=number],.field textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;background:#fafbfa}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--green);background:#fff}
+.field textarea{min-height:80px;resize:vertical;line-height:1.6}
+.field .sub{font-size:11px;color:var(--muted);margin-top:4px}
+.chk{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#444}
+.chk input{width:18px;height:18px;accent-color:var(--green)}
+
+/* image field */
+.imgf{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.imgf-prev{width:96px;height:72px;border-radius:8px;object-fit:cover;background:#e7eae7;border:1px solid var(--line);flex-shrink:0}
+.imgf-ctrl{flex:1;min-width:200px}
+.imgf-ctrl input[type=text]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-size:12px;background:#fafbfa;margin-bottom:8px}
+.up-btn{display:inline-block;background:#eef1ee;color:#333;padding:8px 14px;border-radius:7px;font-size:12.5px;font-weight:500;border:1px solid var(--line)}
+.up-btn:hover{background:#e4e8e4}
+.up-status{font-size:11.5px;color:var(--muted);margin-left:8px}
+
+.card-actions{display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap}
+.save-btn{background:var(--green);color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600}
+.save-btn:hover{background:#0a937c}
+.del-btn{background:#fff;color:var(--danger);border:1px solid #f0caca;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:500}
+.del-btn:hover{background:#fdf2f2}
+.row-status{font-size:12.5px;font-weight:500}
+.row-status.ok{color:var(--green)}
+.row-status.err{color:var(--danger)}
+.loading{text-align:center;color:var(--muted);padding:40px;font-size:14px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:10px;font-size:13.5px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <form class="login-card" id="loginForm">
+    <div class="login-logo">Coffee <b>Ghiri</b> · Admin</div>
+    <div class="login-sub">Sign in to manage your website</div>
+    <label>Email</label>
+    <input type="email" id="email" autocomplete="username" required>
+    <label>Password</label>
+    <input type="password" id="password" autocomplete="current-password" required>
+    <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+    <div class="login-err" id="loginErr"></div>
+  </form>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <div class="topbar">
+    <div class="topbar-l">Coffee <b>Ghiri</b> · Admin</div>
+    <div class="topbar-r"><span id="whoami"></span><button class="logout" id="logoutBtn">Log out</button></div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="wrap" id="wrap"><div class="loading">Loading…</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../cg-supabase.js"></script>
+<script>
+/* ---------- table config ---------- */
+const ARROW = '';
+const TABS = [
+  { key:'activities', label:'Activities', table:'activities', order:'sort_order',
+    title:r=>r.name||'(untitled)', badge:r=>r.distance||'',
+    fields:[
+      {k:'name',label:'Name',type:'text',req:true},
+      {k:'distance',label:'Distance (e.g. 9 Kms)',type:'text'},
+      {k:'num',label:'Number label (e.g. 01)',type:'text'},
+      {k:'tag',label:'Tag line (e.g. Full Day · Guide Required)',type:'text'},
+      {k:'description',label:'Description',type:'textarea',full:true},
+      {k:'image_path',label:'Image',type:'image',full:true},
+      {k:'sort_order',label:'Sort order',type:'number'},
+      {k:'visible',label:'Show on site',type:'bool'},
+    ]},
+  { key:'facilities', label:'Facilities', table:'facilities', order:'sort_order',
+    title:r=>r.name||'(untitled)', badge:r=>r.tag||'',
+    fields:[
+      {k:'name',label:'Name',type:'text',req:true},
+      {k:'tag',label:'Tag (e.g. Veg & Non-Veg Available)',type:'text'},
+      {k:'description',label:'Description',type:'textarea',full:true},
+      {k:'icon_svg',label:'Icon SVG (inner paths — advanced)',type:'textarea',full:true},
+      {k:'image_path',label:'Image',type:'image',full:true},
+      {k:'sort_order',label:'Sort order',type:'number'},
+      {k:'visible',label:'Show on site',type:'bool'},
+    ]},
+  { key:'reviews', label:'Reviews', table:'reviews', order:'sort_order',
+    title:r=>r.author||'(untitled)', badge:r=>(r.rating||5)+'★',
+    fields:[
+      {k:'author',label:'Reviewer name',type:'text',req:true},
+      {k:'rating',label:'Rating (1–5)',type:'number'},
+      {k:'source',label:'Source label (e.g. Google Review)',type:'text'},
+      {k:'date_label',label:'Date label (e.g. July 2025)',type:'text'},
+      {k:'text',label:'Review text',type:'textarea',full:true},
+      {k:'sort_order',label:'Sort order',type:'number'},
+      {k:'visible',label:'Show on site',type:'bool'},
+    ]},
+  { key:'highlights', label:'Highlights', table:'gallery', order:'sort_order', section:'highlights',
+    title:r=>r.title||'(untitled)', badge:r=>'Home',
+    fields:[
+      {k:'title',label:'Title',type:'text',req:true},
+      {k:'caption',label:'Description',type:'textarea',full:true},
+      {k:'link',label:'Link (e.g. activities.html)',type:'text'},
+      {k:'image_path',label:'Image',type:'image',full:true},
+      {k:'sort_order',label:'Sort order',type:'number'},
+      {k:'visible',label:'Show on site',type:'bool'},
+    ]},
+  { key:'gallery', label:'Gallery', table:'gallery', order:'sort_order', section:'gallery',
+    title:r=>r.caption||'(photo)', badge:r=>'Home',
+    fields:[
+      {k:'caption',label:'Caption / alt text',type:'text'},
+      {k:'image_path',label:'Image',type:'image',full:true},
+      {k:'sort_order',label:'Sort order',type:'number'},
+      {k:'visible',label:'Show on site',type:'bool'},
+    ]},
+  { key:'settings', label:'Contact & Info', table:'settings', isSettings:true },
+];
+
+const SETTING_LABELS = {
+  contact_phone:'Phone (display)', contact_phone_intl:'Phone (intl, for links e.g. 9194…)',
+  contact_email:'Email', whatsapp_number:'WhatsApp number (e.g. 9194…)',
+  address_line1:'Address line 1', address_line2:'Address line 2', address_line3:'Address line 3', address_line4:'Address line 4',
+  map_lat:'Map latitude', map_lng:'Map longitude', map_place_id:'Google Place ID', map_cid:'Google CID',
+  price_day:'Day package price (₹)', rating_google:'Google rating', reviews_count:'Google reviews count',
+  rating_goibibo:'GoIbibo rating', altitude:'Altitude', since_year:'Hosting since', activities_count:'Activities count',
+  tagline:'Tagline', brand_desc:'Brand description', instagram_url:'Instagram URL', facebook_url:'Facebook URL'
+};
+
+/* ---------- helpers ---------- */
+const $ = s=>document.querySelector(s);
+const esc = s=>(s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
+function cfgFor(key){return TABS.find(t=>t.key===key);}
+
+/* ---------- auth ---------- */
+async function boot(){
+  const { data:{ session } } = await sb.auth.getSession();
+  if(session){ showApp(session); } else { $('#loginWrap').style.display='flex'; }
+}
+$('#loginForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const btn=$('#loginBtn'); btn.disabled=true; btn.textContent='Signing in…'; $('#loginErr').textContent='';
+  const { data, error } = await sb.auth.signInWithPassword({ email:$('#email').value.trim(), password:$('#password').value });
+  btn.disabled=false; btn.textContent='Sign In';
+  if(error){ $('#loginErr').textContent = error.message || 'Login failed'; return; }
+  showApp(data.session);
+});
+$('#logoutBtn').addEventListener('click', async()=>{ await sb.auth.signOut(); location.reload(); });
+
+let CUR='activities';
+function showApp(session){
+  $('#loginWrap').style.display='none';
+  $('#app').style.display='block';
+  $('#whoami').textContent = session.user?.email || '';
+  renderTabs();
+  selectTab(CUR);
+}
+function renderTabs(){
+  $('#tabs').innerHTML = TABS.map(t=>`<button class="tab${t.key===CUR?' active':''}" data-k="${t.key}">${t.label}</button>`).join('');
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>selectTab(b.dataset.k));
+}
+function selectTab(key){
+  CUR=key; renderTabs();
+  const cfg=cfgFor(key);
+  if(cfg.isSettings) return loadSettings();
+  loadList(cfg);
+}
+
+/* ---------- list CRUD ---------- */
+async function loadList(cfg){
+  $('#wrap').innerHTML='<div class="loading">Loading…</div>';
+  let q = sb.from(cfg.table).select('*');
+  if(cfg.section) q=q.eq('section',cfg.section);
+  q=q.order(cfg.order,{ascending:true});
+  const { data, error } = await q;
+  if(error){ $('#wrap').innerHTML=`<div class="loading">Error: ${esc(error.message)}</div>`; return; }
+  const head=`<div class="head-row"><div><h2>${cfg.label}</h2><div class="hint">${data.length} item${data.length!==1?'s':''} · lower “sort order” shows first</div></div><button class="add-btn" id="addBtn">+ Add new</button></div>`;
+  $('#wrap').innerHTML = head + (data.map(r=>cardHtml(cfg,r)).join('') || '<div class="loading">No items yet — click “Add new”.</div>');
+  $('#addBtn').onclick=()=>addRow(cfg);
+  wireCards(cfg);
+}
+function fieldHtml(cfg,f,row){
+  const v=row[f.k];
+  if(f.type==='bool') return `<div class="field"><label class="chk"><input type="checkbox" data-k="${f.k}" ${v===false?'':'checked'}> ${esc(f.label)}</label></div>`;
+  if(f.type==='textarea') return `<div class="field full"><label>${esc(f.label)}</label><textarea data-k="${f.k}">${esc(v)}</textarea></div>`;
+  if(f.type==='number') return `<div class="field"><label>${esc(f.label)}</label><input type="number" data-k="${f.k}" value="${esc(v)}"></div>`;
+  if(f.type==='image'){
+    return `<div class="field full"><label>${esc(f.label)}</label><div class="imgf">
+      <img class="imgf-prev" data-prev src="${esc(sbImage(v))}" alt="" onerror="this.style.opacity=.25">
+      <div class="imgf-ctrl">
+        <input type="text" data-k="${f.k}" value="${esc(v)}" placeholder="images/… or uploaded URL">
+        <label class="up-btn">Upload image<input type="file" accept="image/*" data-upload hidden></label>
+        <span class="up-status"></span>
+      </div></div></div>`;
+  }
+  return `<div class="field${f.full?' full':''}"><label>${esc(f.label)}</label><input type="text" data-k="${f.k}" value="${esc(v)}"></div>`;
+}
+function cardHtml(cfg,row){
+  const fields = cfg.fields.map(f=>fieldHtml(cfg,f,row)).join('');
+  return `<div class="card" data-id="${row.id}">
+    <div class="card-head"><div class="card-title">${esc(cfg.title(row))}</div><div class="card-badge">${esc(cfg.badge?cfg.badge(row):'')}</div></div>
+    <div class="grid2">${fields}</div>
+    <div class="card-actions">
+      <button class="save-btn" data-save>Save</button>
+      <button class="del-btn" data-del>Delete</button>
+      <span class="row-status"></span>
+    </div></div>`;
+}
+function wireCards(cfg){
+  document.querySelectorAll('.card[data-id]').forEach(card=>{
+    card.querySelector('[data-save]').onclick=()=>saveRow(cfg,card);
+    card.querySelector('[data-del]').onclick=()=>delRow(cfg,card);
+    const fileInput=card.querySelector('[data-upload]');
+    if(fileInput) fileInput.onchange=()=>uploadImg(card,fileInput);
+  });
+}
+function collect(card,cfg){
+  const o={};
+  cfg.fields.forEach(f=>{
+    const el=card.querySelector(`[data-k="${f.k}"]`);
+    if(!el) return;
+    if(f.type==='bool') o[f.k]=el.checked;
+    else if(f.type==='number'){ o[f.k]= el.value===''?null:Number(el.value); }
+    else o[f.k]=el.value;
+  });
+  if(cfg.section) o.section=cfg.section;
+  return o;
+}
+async function saveRow(cfg,card){
+  const st=card.querySelector('.row-status'); st.className='row-status'; st.textContent='Saving…';
+  const payload=collect(card,cfg);
+  const { error } = await sb.from(cfg.table).update(payload).eq('id',card.dataset.id);
+  if(error){ st.className='row-status err'; st.textContent=error.message; return; }
+  st.className='row-status ok'; st.textContent='Saved ✓';
+  card.querySelector('.card-title').textContent = cfg.title(payload);
+  toast('Saved');
+  setTimeout(()=>{st.textContent='';},1800);
+}
+async function addRow(cfg){
+  const base={ sort_order:999, visible:true };
+  if(cfg.section) base.section=cfg.section;
+  if(cfg.table==='activities') base.name='New activity';
+  if(cfg.table==='facilities') base.name='New facility';
+  if(cfg.table==='reviews'){ base.author='New reviewer'; base.rating=5; }
+  if(cfg.key==='highlights') base.title='New highlight';
+  if(cfg.key==='gallery'){ base.image_path='images/gallery-1.jpg'; }
+  const { error } = await sb.from(cfg.table).insert(base);
+  if(error){ toast('Error: '+error.message); return; }
+  toast('Added'); loadList(cfg);
+}
+async function delRow(cfg,card){
+  if(!confirm('Delete this item permanently?')) return;
+  const { error } = await sb.from(cfg.table).delete().eq('id',card.dataset.id);
+  if(error){ toast('Error: '+error.message); return; }
+  card.remove(); toast('Deleted');
+}
+async function uploadImg(card,fileInput){
+  const file=fileInput.files[0]; if(!file) return;
+  const status=card.querySelector('.up-status'); status.textContent='Uploading…';
+  const safe=file.name.replace(/[^a-zA-Z0-9.\-_]/g,'_');
+  const path='uploads/'+Date.now()+'-'+safe;
+  const { error } = await sb.storage.from(SB_BUCKET).upload(path,file,{upsert:true,cacheControl:'3600'});
+  if(error){ status.textContent='Upload failed: '+error.message; return; }
+  const url = sb.storage.from(SB_BUCKET).getPublicUrl(path).data.publicUrl;
+  card.querySelector('[data-k="image_path"]').value=url;
+  card.querySelector('[data-prev]').src=url;
+  status.textContent='Uploaded ✓ — remember to Save';
+}
+
+/* ---------- settings ---------- */
+async function loadSettings(){
+  $('#wrap').innerHTML='<div class="loading">Loading…</div>';
+  const { data, error } = await sb.from('settings').select('*').order('key');
+  if(error){ $('#wrap').innerHTML=`<div class="loading">Error: ${esc(error.message)}</div>`; return; }
+  const order=Object.keys(SETTING_LABELS);
+  data.sort((a,b)=>{const ia=order.indexOf(a.key),ib=order.indexOf(b.key);return (ia<0?99:ia)-(ib<0?99:ib);});
+  const rows=data.map(s=>{
+    const big = s.key==='brand_desc';
+    const input = big
+      ? `<textarea data-skey="${esc(s.key)}">${esc(s.value)}</textarea>`
+      : `<input type="text" data-skey="${esc(s.key)}" value="${esc(s.value)}">`;
+    return `<div class="field${big?' full':''}"><label>${esc(SETTING_LABELS[s.key]||s.key)}</label>${input}</div>`;
+  }).join('');
+  $('#wrap').innerHTML=`<div class="head-row"><div><h2>Contact &amp; Info</h2><div class="hint">Phone, email, address, pricing and ratings used across the site</div></div><button class="add-btn" id="saveSet">Save all</button></div>
+    <div class="card"><div class="grid2">${rows}</div><div class="card-actions"><button class="save-btn" id="saveSet2">Save all</button><span class="row-status" id="setStatus"></span></div></div>`;
+  const doSave=async()=>{
+    const st=$('#setStatus'); st.className='row-status'; st.textContent='Saving…';
+    const ups=[...document.querySelectorAll('[data-skey]')].map(el=>({key:el.dataset.skey,value:el.value,updated_at:new Date().toISOString()}));
+    const { error } = await sb.from('settings').upsert(ups,{onConflict:'key'});
+    if(error){ st.className='row-status err'; st.textContent=error.message; return; }
+    st.className='row-status ok'; st.textContent='Saved ✓'; toast('Settings saved'); setTimeout(()=>st.textContent='',1800);
+  };
+  $('#saveSet').onclick=doSave; $('#saveSet2').onclick=doSave;
+}
+
+boot();
+</script>
+</body>
+</html>

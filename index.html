@@ -273,7 +273,7 @@
       <h2 class="h2">Location &amp; <i>Ambience</i></h2>
     </div>
   </div>
-  <div class="hl-grid" style="margin-top:clamp(32px,5vw,60px)">
+  <div class="hl-grid" id="cgHighlights" style="margin-top:clamp(32px,5vw,60px)">
     <div class="hl-item">
       <img class="hl-bg" src="images/highlight-kudremukh-trek.jpg" alt="Kudremukh trekking trail">
       <div class="hl-veil"></div>
@@ -315,7 +315,7 @@
       <h2 class="h2">Through the <i>Lens</i></h2>
     </div>
   </div>
-  <div class="gallery-grid rv">
+  <div class="gallery-grid rv" id="cgGallery">
     <div class="gi gi-tall"><img src="images/gallery-1.jpg" alt="Coffee Ghiri Homestay illuminated at night" loading="lazy"></div>
     <div class="gi gi-sq"><img src="images/gallery-2.jpg" alt="Coffee Ghiri Homestay" loading="lazy"></div>
     <div class="gi gi-sq"><img src="images/gallery-3.jpg" alt="Coffee Ghiri Homestay" loading="lazy"></div>
@@ -367,7 +367,7 @@
     </div>
 
     <!-- Review Cards -->
-    <div class="gr-grid rv">
+    <div class="gr-grid rv" id="cgReviews">
 
       <!-- Card 1 -->
       <div class="gr-card">
@@ -603,5 +603,8 @@
 const vid=document.querySelector('video');
 if(vid){vid.addEventListener('error',()=>{vid.style.display='none';document.getElementById('fallbackImg').style.display='block'});}
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="cg-supabase.js"></script>
+<script src="cg-data.js"></script>
 </body>
 </html>
