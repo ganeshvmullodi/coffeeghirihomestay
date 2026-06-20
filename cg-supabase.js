@@ -20,7 +20,11 @@ const sb = window.supabase.createClient(SB_URL, SB_KEY, {
 const SB_BUCKET = 'images';
 function sbImage(path) {
   if (!path) return '';
-  // Already a full URL or a local path? use as-is.
-  if (/^https?:\/\//.test(path) || path.startsWith('images/') || path.startsWith('/')) return path;
+  // Already a full URL or an absolute path? use as-is.
+  if (/^https?:\/\//.test(path) || path.startsWith('/')) return path;
+  // Repo image (e.g. "images/foo.jpg"): make it root-absolute so it
+  // resolves correctly from the site root AND from the /admin/ subfolder.
+  if (path.startsWith('images/')) return '/' + path;
+  // Otherwise it's a file in the Supabase Storage "images" bucket.
   return `${SB_URL}/storage/v1/object/public/${SB_BUCKET}/${path}`;
 }
