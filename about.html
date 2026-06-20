@@ -135,8 +135,8 @@
   <img class="about-hero-img" src="images/gallery-1.jpg" alt="Coffee Ghiri Homestay illuminated at night">
   <div class="page-hero-veil"></div>
   <div class="page-hero-content">
-    <p class="page-hero-tag">Our Story</p>
-    <h1 class="page-hero-h1">About <i>Coffee Ghiri</i></h1>
+    <p class="page-hero-tag" data-cg-text="about_hero_tag">Our Story</p>
+    <h1 class="page-hero-h1" data-cg-text="about_hero_title">About <i>Coffee Ghiri</i></h1>
   </div>
 </div>
 
@@ -153,12 +153,12 @@
   <div class="inner">
     <div class="story-grid">
       <div class="rv-l">
-        <p class="eyebrow">Who We Are</p>
-        <h2 class="h2">A Home in the <i>Rain-Washed Mountains</i></h2>
-        <p>Coffee-ghiri is situated overlooking the picturesque village of Samse, bordering the Kudremukh national park at an elevation of <strong>960 metres above sea level</strong>.</p>
-        <p>The village is spread out across a wide area and is sparsely populated. The Kudremukh national park on the borders of the village is a densely forested wildlife sanctuary, home to a wonderful variety of flora and fauna and is also a designated tiger reserve.</p>
+        <p class="eyebrow" data-cg-text="about_story_eyebrow">Who We Are</p>
+        <h2 class="h2" data-cg-text="about_story_title">A Home in the <i>Rain-Washed Mountains</i></h2>
+        <p data-cg-text="about_story_p1">Coffee-ghiri is situated overlooking the picturesque village of Samse, bordering the Kudremukh national park at an elevation of <strong>960 metres above sea level</strong>.</p>
+        <p data-cg-text="about_story_p2">The village is spread out across a wide area and is sparsely populated. The Kudremukh national park on the borders of the village is a densely forested wildlife sanctuary, home to a wonderful variety of flora and fauna and is also a designated tiger reserve.</p>
         <div class="pull-quote">
-          <p>"Leading out from coffee-ghiri is a Hikers paradise which comprise off several lovely walks along the hills, which shelter sparkling streams and unbelievable breath taking water cascades."</p>
+          <p data-cg-text="about_story_quote">"Leading out from coffee-ghiri is a Hikers paradise which comprise off several lovely walks along the hills, which shelter sparkling streams and unbelievable breath taking water cascades."</p>
           <cite>— Coffee Ghiri Homestay</cite>
         </div>
       </div>
@@ -192,11 +192,11 @@
         </div>
       </div>
       <div class="rv-r">
-        <p class="eyebrow">Your Host</p>
-        <h2 class="h2">Meet <i>Ganesh</i></h2>
-        <p>Run by Ganesh, an amiable host who's been hosting since 2019. He manages the property alongside his family and staff, and stays on-site to assist guests.</p>
-        <p>Guests report smooth check-in/out, flexible policies, and a friendly on-site manager.</p>
-        <p>Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
+        <p class="eyebrow" data-cg-text="about_host_eyebrow">Your Host</p>
+        <h2 class="h2" data-cg-text="about_host_title">Meet <i>Ganesh</i></h2>
+        <p data-cg-text="about_host_p1">Run by Ganesh, an amiable host who's been hosting since 2019. He manages the property alongside his family and staff, and stays on-site to assist guests.</p>
+        <p data-cg-text="about_host_p2">Guests report smooth check-in/out, flexible policies, and a friendly on-site manager.</p>
+        <p data-cg-text="about_host_p3">Coffee Ghiri is a peaceful, offbeat homestay with warm hospitality, ideal for nature lovers, trekkers, or families seeking a restful getaway. The host-trained staff, home-cooked meals, and scenic location make it a memorable refuge.</p>
         <div class="host-card">
           <div class="hc-avatar">G</div>
           <div>
@@ -214,8 +214,8 @@
 <section class="surroundings">
   <div class="inner">
     <div class="rv">
-      <p class="eyebrow">What Surrounds Us</p>
-      <h2 class="h2">Hills, Tea Gardens, <i>Waterfalls & More</i></h2>
+      <p class="eyebrow" data-cg-text="about_sur_eyebrow">What Surrounds Us</p>
+      <h2 class="h2" data-cg-text="about_sur_title">Hills, Tea Gardens, <i>Waterfalls & More</i></h2>
     </div>
     <div class="sur-grid">
       <div class="sur-item rv d1">
@@ -293,5 +293,8 @@
   </div>
 </footer>
 <script src="cg-shared.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="cg-supabase.js"></script>
+<script src="cg-data.js"></script>
 </body>
 </html>

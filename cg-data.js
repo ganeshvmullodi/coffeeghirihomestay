@@ -113,9 +113,26 @@
     box.innerHTML=rows.map((r,i)=>`<div class="gi ${i===0?'gi-tall':'gi-sq'}"><img src="${esc(sbImage(r.image_path))}" alt="${esc(r.caption||'Coffee Ghiri Homestay')}" loading="lazy"></div>`).join('');
   }
 
+  // ---------- PAGE TEXT (content table) ----------
+  // Safe rich text: escape everything, then allow only {i}{/i} {b}{/b} {br}.
+  function richText(v){
+    return esc(v)
+      .replace(/\{i\}/g,'<i>').replace(/\{\/i\}/g,'</i>')
+      .replace(/\{b\}/g,'<strong>').replace(/\{\/b\}/g,'</strong>')
+      .replace(/\{br\}/g,'<br>');
+  }
+  async function content(){
+    const nodes=document.querySelectorAll('[data-cg-text]');
+    if(!nodes.length) return;
+    const { data, error } = await sb.from('content').select('key,value');
+    if(error||!data) return;
+    const C={}; data.forEach(r=>C[r.key]=r.value);
+    nodes.forEach(n=>{ const k=n.dataset.cgText; if(C[k]!=null) n.innerHTML=richText(C[k]); });
+  }
+
   // ---------- SETTINGS (contact info, links) ----------
   async function settings(){
-    const targets=document.querySelectorAll('[data-cg-set],[data-cg-href],[data-cg-tel],[data-cg-wa]');
+    const targets=document.querySelectorAll('[data-cg-set],[data-cg-href],[data-cg-tel],[data-cg-wa],[data-cg-mailto]');
     if(!targets.length) return;
     const { data, error } = await sb.from('settings').select('key,value');
     if(error||!data) return;
@@ -125,9 +142,10 @@
       if(node.dataset.cgHref && S[node.dataset.cgHref]) node.setAttribute('href',S[node.dataset.cgHref]);
       if(node.dataset.cgTel && S[node.dataset.cgTel]) node.setAttribute('href','tel:'+S[node.dataset.cgTel].replace(/\s/g,''));
       if(node.dataset.cgWa && S[node.dataset.cgWa]) node.setAttribute('href','https://wa.me/'+S[node.dataset.cgWa]);
+      if(node.dataset.cgMailto && S[node.dataset.cgMailto]) node.setAttribute('href','mailto:'+S[node.dataset.cgMailto]);
     });
   }
 
   // run whichever sections exist on this page
-  activities(); facilities(); reviews(); highlights(); gallery(); settings();
+  activities(); facilities(); reviews(); highlights(); gallery(); content(); settings();
 })();

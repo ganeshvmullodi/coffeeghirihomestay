@@ -35,12 +35,16 @@ input,textarea,select{font-family:inherit}
 .logout{background:rgba(255,255,255,.12);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500}
 .logout:hover{background:rgba(255,255,255,.22)}
 .tabs{position:sticky;top:50px;z-index:15;background:#fff;border-bottom:1px solid var(--line);display:flex;gap:2px;overflow-x:auto;padding:0 clamp(8px,3vw,24px)}
-.tab{background:none;border:none;padding:14px 16px;font-size:13px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+.tab{background:none;border:none;padding:15px 20px;font-size:13px;font-weight:600;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;text-transform:uppercase}
 .tab.active{color:var(--green);border-bottom-color:var(--green)}
 .wrap{max-width:920px;margin:0 auto;padding:clamp(16px,4vw,32px)}
-.head-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
-.head-row h2{font-size:20px;font-weight:600}
-.head-row .hint{font-size:13px;color:var(--muted);font-weight:400}
+.page-intro{font-size:13px;color:var(--muted);margin-bottom:22px}
+.page-section{margin-bottom:34px;padding-bottom:30px;border-bottom:1px dashed var(--line)}
+.page-section:last-child{border-bottom:none}
+.head-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+.head-row h2{font-size:18px;font-weight:600}
+.head-row .hint,.hint{font-size:12.5px;color:var(--muted);font-weight:400}
+.hint{margin-bottom:12px}
 .add-btn{background:var(--green);color:#fff;border:none;padding:10px 18px;border-radius:9px;font-size:13px;font-weight:600}
 .add-btn:hover{background:#0a937c}
 
@@ -55,11 +59,9 @@ input,textarea,select{font-family:inherit}
 .field input[type=text],.field input[type=number],.field textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;background:#fafbfa}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--green);background:#fff}
 .field textarea{min-height:80px;resize:vertical;line-height:1.6}
-.field .sub{font-size:11px;color:var(--muted);margin-top:4px}
 .chk{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:#444}
 .chk input{width:18px;height:18px;accent-color:var(--green)}
 
-/* image field */
 .imgf{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
 .imgf-prev{width:96px;height:72px;border-radius:8px;object-fit:cover;background:#e7eae7;border:1px solid var(--line);flex-shrink:0}
 .imgf-ctrl{flex:1;min-width:200px}
@@ -76,7 +78,7 @@ input,textarea,select{font-family:inherit}
 .row-status{font-size:12.5px;font-weight:500}
 .row-status.ok{color:var(--green)}
 .row-status.err{color:var(--danger)}
-.loading{text-align:center;color:var(--muted);padding:40px;font-size:14px}
+.loading{color:var(--muted);padding:18px 2px;font-size:14px}
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:10px;font-size:13.5px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
 @media(max-width:560px){.grid2{grid-template-columns:1fr}}
@@ -113,84 +115,108 @@ input,textarea,select{font-family:inherit}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../cg-supabase.js"></script>
 <script>
-/* ---------- table config ---------- */
-const ARROW = '';
-const TABS = [
-  { key:'activities', label:'Activities', table:'activities', order:'sort_order',
-    title:r=>r.name||'(untitled)', badge:r=>r.distance||'',
+/* ---------- list editors (one per content type) ---------- */
+const LIST = {
+  activities:{ table:'activities', order:'sort_order', title:r=>r.name||'(untitled)', badge:r=>r.distance||'',
     fields:[
-      {k:'name',label:'Name',type:'text',req:true},
-      {k:'distance',label:'Distance (e.g. 9 Kms)',type:'text'},
-      {k:'num',label:'Number label (e.g. 01)',type:'text'},
-      {k:'tag',label:'Tag line (e.g. Full Day · Guide Required)',type:'text'},
-      {k:'description',label:'Description',type:'textarea',full:true},
-      {k:'image_path',label:'Image',type:'image',full:true},
-      {k:'sort_order',label:'Sort order',type:'number'},
-      {k:'visible',label:'Show on site',type:'bool'},
-    ]},
-  { key:'facilities', label:'Facilities', table:'facilities', order:'sort_order',
-    title:r=>r.name||'(untitled)', badge:r=>r.tag||'',
+      {k:'name',label:'Name',type:'text'},{k:'distance',label:'Distance (e.g. 9 Kms)',type:'text'},
+      {k:'num',label:'Number label (e.g. 01)',type:'text'},{k:'tag',label:'Tag line (e.g. Full Day · Guide Required)',type:'text'},
+      {k:'description',label:'Description',type:'textarea',full:true},{k:'image_path',label:'Image',type:'image',full:true},
+      {k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+  facilities:{ table:'facilities', order:'sort_order', title:r=>r.name||'(untitled)', badge:r=>r.tag||'',
     fields:[
-      {k:'name',label:'Name',type:'text',req:true},
-      {k:'tag',label:'Tag (e.g. Veg & Non-Veg Available)',type:'text'},
-      {k:'description',label:'Description',type:'textarea',full:true},
-      {k:'icon_svg',label:'Icon SVG (inner paths — advanced)',type:'textarea',full:true},
-      {k:'image_path',label:'Image',type:'image',full:true},
-      {k:'sort_order',label:'Sort order',type:'number'},
-      {k:'visible',label:'Show on site',type:'bool'},
-    ]},
-  { key:'reviews', label:'Reviews', table:'reviews', order:'sort_order',
-    title:r=>r.author||'(untitled)', badge:r=>(r.rating||5)+'★',
+      {k:'name',label:'Name',type:'text'},{k:'tag',label:'Tag (e.g. Veg & Non-Veg Available)',type:'text'},
+      {k:'description',label:'Description',type:'textarea',full:true},{k:'icon_svg',label:'Icon SVG (inner paths — advanced)',type:'textarea',full:true},
+      {k:'image_path',label:'Image',type:'image',full:true},{k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+  reviews:{ table:'reviews', order:'sort_order', title:r=>r.author||'(untitled)', badge:r=>(r.rating||5)+'★',
     fields:[
-      {k:'author',label:'Reviewer name',type:'text',req:true},
-      {k:'rating',label:'Rating (1–5)',type:'number'},
-      {k:'source',label:'Source label (e.g. Google Review)',type:'text'},
-      {k:'date_label',label:'Date label (e.g. July 2025)',type:'text'},
-      {k:'text',label:'Review text',type:'textarea',full:true},
-      {k:'sort_order',label:'Sort order',type:'number'},
-      {k:'visible',label:'Show on site',type:'bool'},
-    ]},
-  { key:'highlights', label:'Highlights', table:'gallery', order:'sort_order', section:'highlights',
-    title:r=>r.title||'(untitled)', badge:r=>'Home',
+      {k:'author',label:'Reviewer name',type:'text'},{k:'rating',label:'Rating (1–5)',type:'number'},
+      {k:'source',label:'Source label (e.g. Google Review)',type:'text'},{k:'date_label',label:'Date label (e.g. July 2025)',type:'text'},
+      {k:'text',label:'Review text',type:'textarea',full:true},{k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+  highlights:{ table:'gallery', order:'sort_order', section:'highlights', title:r=>r.title||'(untitled)', badge:()=>'Home',
     fields:[
-      {k:'title',label:'Title',type:'text',req:true},
-      {k:'caption',label:'Description',type:'textarea',full:true},
-      {k:'link',label:'Link (e.g. activities.html)',type:'text'},
-      {k:'image_path',label:'Image',type:'image',full:true},
-      {k:'sort_order',label:'Sort order',type:'number'},
-      {k:'visible',label:'Show on site',type:'bool'},
-    ]},
-  { key:'gallery', label:'Gallery', table:'gallery', order:'sort_order', section:'gallery',
-    title:r=>r.caption||'(photo)', badge:r=>'Home',
+      {k:'title',label:'Title',type:'text'},{k:'caption',label:'Description',type:'textarea',full:true},
+      {k:'link',label:'Link (e.g. activities.html)',type:'text'},{k:'image_path',label:'Image',type:'image',full:true},
+      {k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+  gallery:{ table:'gallery', order:'sort_order', section:'gallery', title:r=>r.caption||'(photo)', badge:()=>'Home',
     fields:[
-      {k:'caption',label:'Caption / alt text',type:'text'},
-      {k:'image_path',label:'Image',type:'image',full:true},
-      {k:'sort_order',label:'Sort order',type:'number'},
-      {k:'visible',label:'Show on site',type:'bool'},
-    ]},
-  { key:'settings', label:'Contact & Info', table:'settings', isSettings:true },
-];
-
-const SETTING_LABELS = {
-  contact_phone:'Phone (display)', contact_phone_intl:'Phone (intl, for links e.g. 9194…)',
-  contact_email:'Email', whatsapp_number:'WhatsApp number (e.g. 9194…)',
-  address_line1:'Address line 1', address_line2:'Address line 2', address_line3:'Address line 3', address_line4:'Address line 4',
-  map_lat:'Map latitude', map_lng:'Map longitude', map_place_id:'Google Place ID', map_cid:'Google CID',
-  price_day:'Day package price (₹)', rating_google:'Google rating', reviews_count:'Google reviews count',
-  rating_goibibo:'GoIbibo rating', altitude:'Altitude', since_year:'Hosting since', activities_count:'Activities count',
-  tagline:'Tagline', brand_desc:'Brand description', instagram_url:'Instagram URL', facebook_url:'Facebook URL'
+      {k:'caption',label:'Caption / alt text',type:'text'},{k:'image_path',label:'Image',type:'image',full:true},
+      {k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
 };
+
+/* ---------- friendly labels for text/settings keys ---------- */
+const LABELS = {
+  // home text
+  home_hero_title:'Hero headline', home_hero_sub:'Hero sub-line',
+  home_intro_eyebrow:'Intro — eyebrow', home_intro_title:'Intro — heading',
+  home_intro_p1:'Intro — paragraph 1', home_intro_p2:'Intro — paragraph 2', home_intro_p3:'Intro — paragraph 3',
+  home_highlights_eyebrow:'Highlights — eyebrow', home_highlights_title:'Highlights — heading',
+  home_gallery_eyebrow:'Gallery — eyebrow', home_gallery_title:'Gallery — heading',
+  home_reviews_eyebrow:'Reviews — eyebrow', home_reviews_title:'Reviews — heading',
+  home_cta_title:'Bottom CTA — heading', home_cta_text:'Bottom CTA — text',
+  // about text
+  about_hero_tag:'Hero — small tag', about_hero_title:'Hero — heading',
+  about_story_eyebrow:'Story — eyebrow', about_story_title:'Story — heading',
+  about_story_p1:'Story — paragraph 1', about_story_p2:'Story — paragraph 2', about_story_quote:'Story — pull quote',
+  about_host_eyebrow:'Host — eyebrow', about_host_title:'Host — heading',
+  about_host_p1:'Host — paragraph 1', about_host_p2:'Host — paragraph 2', about_host_p3:'Host — paragraph 3',
+  about_sur_eyebrow:'Surroundings — eyebrow', about_sur_title:'Surroundings — heading',
+  // facilities text
+  fac_hero_tag:'Hero — small tag', fac_hero_title:'Hero — heading',
+  fac_intro_eyebrow:'Section — eyebrow', fac_intro_title:'Section — heading',
+  // activities text
+  act_hero_tag:'Hero — small tag', act_hero_title:'Hero — heading',
+  act_intro_eyebrow:'Intro — eyebrow', act_intro_title:'Intro — heading', act_intro_text:'Intro — paragraph',
+  act_grid_eyebrow:'Grid — eyebrow', act_grid_title:'Grid — heading',
+  act_cta_title:'Bottom CTA — heading', act_cta_text:'Bottom CTA — text',
+  // contact text
+  contact_hero_tag:'Hero — small tag', contact_hero_title:'Hero — heading',
+  // settings
+  contact_phone:'Phone (display)', contact_phone_intl:'Phone (for links, e.g. 9194…)', contact_email:'Email',
+  whatsapp_number:'WhatsApp number (e.g. 9194…)',
+  address_line1:'Address line 1', address_line2:'Address line 2', address_line3:'Address line 3', address_line4:'Address line 4',
+  price_day:'Day package price (₹)', map_lat:'Map latitude', map_lng:'Map longitude', map_place_id:'Google Place ID', map_cid:'Google CID',
+  altitude:'Altitude', rating_goibibo:'GoIbibo rating', reviews_count:'Google reviews count', since_year:'Hosting since',
+  activities_count:'Activities count', rating_google:'Google rating'
+};
+
+/* ---------- pages (mirror the website nav) ---------- */
+const PAGES = [
+  { key:'home', label:'Home', intro:'Everything on your homepage.', sections:[
+      {type:'content', label:'Hero & section text', keys:['home_hero_title','home_hero_sub','home_intro_eyebrow','home_intro_title','home_intro_p1','home_intro_p2','home_intro_p3','home_highlights_eyebrow','home_highlights_title','home_gallery_eyebrow','home_gallery_title','home_reviews_eyebrow','home_reviews_title','home_cta_title','home_cta_text']},
+      {type:'list', list:'highlights', label:'Location & Ambience (highlight cards)'},
+      {type:'list', list:'gallery', label:'Photo Gallery (Through the Lens)'},
+      {type:'list', list:'reviews', label:'Google Reviews'},
+      {type:'settings', label:'Stats & ratings', keys:['altitude','rating_goibibo','reviews_count','since_year','activities_count','rating_google']},
+  ]},
+  { key:'about', label:'About', intro:'Your story, the host, and the surroundings text.', sections:[
+      {type:'content', label:'About page text', keys:['about_hero_tag','about_hero_title','about_story_eyebrow','about_story_title','about_story_p1','about_story_p2','about_story_quote','about_host_eyebrow','about_host_title','about_host_p1','about_host_p2','about_host_p3','about_sur_eyebrow','about_sur_title']},
+  ]},
+  { key:'facilities', label:'Facilities', intro:'Page headings and your facility cards.', sections:[
+      {type:'content', label:'Page headings', keys:['fac_hero_tag','fac_hero_title','fac_intro_eyebrow','fac_intro_title']},
+      {type:'list', list:'facilities', label:'Facility cards'},
+  ]},
+  { key:'activities', label:'Activities', intro:'Page headings and your activity cards.', sections:[
+      {type:'content', label:'Page headings & intro', keys:['act_hero_tag','act_hero_title','act_intro_eyebrow','act_intro_title','act_intro_text','act_grid_eyebrow','act_grid_title','act_cta_title','act_cta_text']},
+      {type:'list', list:'activities', label:'Activity cards'},
+  ]},
+  { key:'contact', label:'Contact', intro:'Your contact details, pricing and map.', sections:[
+      {type:'content', label:'Page headings', keys:['contact_hero_tag','contact_hero_title']},
+      {type:'settings', label:'Contact details', keys:['contact_phone','contact_phone_intl','contact_email','whatsapp_number','address_line1','address_line2','address_line3','address_line4']},
+      {type:'settings', label:'Pricing & map', keys:['price_day','map_lat','map_lng','map_place_id','map_cid']},
+  ]},
+];
 
 /* ---------- helpers ---------- */
 const $ = s=>document.querySelector(s);
 const esc = s=>(s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const longKey = k=>/_p\d$|_text$|_quote$|^brand_desc$/.test(k);
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
-function cfgFor(key){return TABS.find(t=>t.key===key);}
 
 /* ---------- auth ---------- */
 async function boot(){
   const { data:{ session } } = await sb.auth.getSession();
-  if(session){ showApp(session); } else { $('#loginWrap').style.display='flex'; }
+  if(session) showApp(session); else $('#loginWrap').style.display='flex';
 }
 $('#loginForm').addEventListener('submit', async e=>{
   e.preventDefault();
@@ -202,80 +228,95 @@ $('#loginForm').addEventListener('submit', async e=>{
 });
 $('#logoutBtn').addEventListener('click', async()=>{ await sb.auth.signOut(); location.reload(); });
 
-let CUR='activities';
+let CUR='home';
 function showApp(session){
   $('#loginWrap').style.display='none';
   $('#app').style.display='block';
   $('#whoami').textContent = session.user?.email || '';
-  renderTabs();
-  selectTab(CUR);
+  renderTabs(); selectPage(CUR);
 }
 function renderTabs(){
-  $('#tabs').innerHTML = TABS.map(t=>`<button class="tab${t.key===CUR?' active':''}" data-k="${t.key}">${t.label}</button>`).join('');
-  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>selectTab(b.dataset.k));
+  $('#tabs').innerHTML = PAGES.map(p=>`<button class="tab${p.key===CUR?' active':''}" data-k="${p.key}">${p.label}</button>`).join('');
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>selectPage(b.dataset.k));
 }
-function selectTab(key){
+function selectPage(key){
   CUR=key; renderTabs();
-  const cfg=cfgFor(key);
-  if(cfg.isSettings) return loadSettings();
-  loadList(cfg);
+  const page=PAGES.find(p=>p.key===key);
+  const wrap=$('#wrap'); wrap.innerHTML=`<div class="page-intro">${esc(page.intro)}</div>`;
+  page.sections.forEach((sec,i)=>{
+    const block=document.createElement('div'); block.className='page-section'; block.id='sec'+i;
+    block.innerHTML='<div class="loading">Loading…</div>'; wrap.appendChild(block);
+    if(sec.type==='list') loadList(LIST[sec.list], block, sec.label);
+    else renderKV(sec.type==='content'?'content':'settings', sec.keys, block, sec.label);
+  });
+}
+
+/* ---------- key/value editor (page text + settings) ---------- */
+async function renderKV(table, keys, box, label){
+  const { data, error } = await sb.from(table).select('key,value').in('key',keys);
+  if(error){ box.innerHTML='<div class="loading">Error: '+esc(error.message)+'</div>'; return; }
+  const map={}; (data||[]).forEach(r=>map[r.key]=r.value);
+  const fields=keys.map(k=>{
+    const v=map[k]!=null?map[k]:''; const lbl=LABELS[k]||k; const lng=longKey(k);
+    const input = lng?`<textarea data-kv="${esc(k)}">${esc(v)}</textarea>`:`<input type="text" data-kv="${esc(k)}" value="${esc(v)}">`;
+    return `<div class="field${lng?' full':''}"><label>${esc(lbl)}</label>${input}</div>`;
+  }).join('');
+  const marker = table==='content' ? '<div class="hint">Tip: use <b>{i}…{/i}</b> for italic (gold), <b>{b}…{/b}</b> for bold, <b>{br}</b> for a line break.</div>' : '';
+  box.innerHTML=`<div class="head-row"><h2>${esc(label)}</h2><button class="add-btn" data-save>Save changes</button></div>${marker}
+    <div class="card"><div class="grid2">${fields}</div><div class="card-actions"><button class="save-btn" data-save2>Save changes</button><span class="row-status"></span></div></div>`;
+  const st=box.querySelector('.row-status');
+  const doSave=async()=>{
+    st.className='row-status'; st.textContent='Saving…';
+    const ups=[...box.querySelectorAll('[data-kv]')].map(el=>({key:el.dataset.kv,value:el.value,updated_at:new Date().toISOString()}));
+    const { error } = await sb.from(table).upsert(ups,{onConflict:'key'});
+    if(error){ st.className='row-status err'; st.textContent=error.message; return; }
+    st.className='row-status ok'; st.textContent='Saved ✓'; toast('Saved'); setTimeout(()=>st.textContent='',1800);
+  };
+  box.querySelector('[data-save]').onclick=doSave; box.querySelector('[data-save2]').onclick=doSave;
 }
 
 /* ---------- list CRUD ---------- */
-async function loadList(cfg){
-  $('#wrap').innerHTML='<div class="loading">Loading…</div>';
-  let q = sb.from(cfg.table).select('*');
-  if(cfg.section) q=q.eq('section',cfg.section);
-  q=q.order(cfg.order,{ascending:true});
-  const { data, error } = await q;
-  if(error){ $('#wrap').innerHTML=`<div class="loading">Error: ${esc(error.message)}</div>`; return; }
-  const head=`<div class="head-row"><div><h2>${cfg.label}</h2><div class="hint">${data.length} item${data.length!==1?'s':''} · lower “sort order” shows first</div></div><button class="add-btn" id="addBtn">+ Add new</button></div>`;
-  $('#wrap').innerHTML = head + (data.map(r=>cardHtml(cfg,r)).join('') || '<div class="loading">No items yet — click “Add new”.</div>');
-  $('#addBtn').onclick=()=>addRow(cfg);
-  wireCards(cfg);
+async function loadList(cfg, box, label){
+  box.innerHTML='<div class="loading">Loading…</div>';
+  let q=sb.from(cfg.table).select('*'); if(cfg.section) q=q.eq('section',cfg.section);
+  const { data, error } = await q.order(cfg.order,{ascending:true});
+  if(error){ box.innerHTML='<div class="loading">Error: '+esc(error.message)+'</div>'; return; }
+  box.innerHTML=`<div class="head-row"><div><h2>${esc(label)}</h2><div class="hint">${data.length} item${data.length!==1?'s':''} · lower “sort order” shows first</div></div><button class="add-btn" data-add>+ Add new</button></div>`
+    + (data.map(r=>cardHtml(cfg,r)).join('') || '<div class="loading">No items yet — click “Add new”.</div>');
+  box.querySelector('[data-add]').onclick=()=>addRow(cfg,box,label);
+  wireCards(cfg,box,label);
 }
-function fieldHtml(cfg,f,row){
+function fieldHtml(f,row){
   const v=row[f.k];
   if(f.type==='bool') return `<div class="field"><label class="chk"><input type="checkbox" data-k="${f.k}" ${v===false?'':'checked'}> ${esc(f.label)}</label></div>`;
   if(f.type==='textarea') return `<div class="field full"><label>${esc(f.label)}</label><textarea data-k="${f.k}">${esc(v)}</textarea></div>`;
   if(f.type==='number') return `<div class="field"><label>${esc(f.label)}</label><input type="number" data-k="${f.k}" value="${esc(v)}"></div>`;
-  if(f.type==='image'){
-    return `<div class="field full"><label>${esc(f.label)}</label><div class="imgf">
+  if(f.type==='image') return `<div class="field full"><label>${esc(f.label)}</label><div class="imgf">
       <img class="imgf-prev" data-prev src="${esc(sbImage(v))}" alt="" onerror="this.style.opacity=.25">
-      <div class="imgf-ctrl">
-        <input type="text" data-k="${f.k}" value="${esc(v)}" placeholder="images/… or uploaded URL">
-        <label class="up-btn">Upload image<input type="file" accept="image/*" data-upload hidden></label>
-        <span class="up-status"></span>
+      <div class="imgf-ctrl"><input type="text" data-k="${f.k}" value="${esc(v)}" placeholder="images/… or uploaded URL">
+        <label class="up-btn">Upload image<input type="file" accept="image/*" data-upload hidden></label><span class="up-status"></span>
       </div></div></div>`;
-  }
   return `<div class="field${f.full?' full':''}"><label>${esc(f.label)}</label><input type="text" data-k="${f.k}" value="${esc(v)}"></div>`;
 }
 function cardHtml(cfg,row){
-  const fields = cfg.fields.map(f=>fieldHtml(cfg,f,row)).join('');
   return `<div class="card" data-id="${row.id}">
     <div class="card-head"><div class="card-title">${esc(cfg.title(row))}</div><div class="card-badge">${esc(cfg.badge?cfg.badge(row):'')}</div></div>
-    <div class="grid2">${fields}</div>
-    <div class="card-actions">
-      <button class="save-btn" data-save>Save</button>
-      <button class="del-btn" data-del>Delete</button>
-      <span class="row-status"></span>
-    </div></div>`;
+    <div class="grid2">${cfg.fields.map(f=>fieldHtml(f,row)).join('')}</div>
+    <div class="card-actions"><button class="save-btn" data-save>Save</button><button class="del-btn" data-del>Delete</button><span class="row-status"></span></div></div>`;
 }
-function wireCards(cfg){
-  document.querySelectorAll('.card[data-id]').forEach(card=>{
+function wireCards(cfg,box,label){
+  box.querySelectorAll('.card[data-id]').forEach(card=>{
     card.querySelector('[data-save]').onclick=()=>saveRow(cfg,card);
     card.querySelector('[data-del]').onclick=()=>delRow(cfg,card);
-    const fileInput=card.querySelector('[data-upload]');
-    if(fileInput) fileInput.onchange=()=>uploadImg(card,fileInput);
+    const fileInput=card.querySelector('[data-upload]'); if(fileInput) fileInput.onchange=()=>uploadImg(card,fileInput);
   });
 }
 function collect(card,cfg){
   const o={};
   cfg.fields.forEach(f=>{
-    const el=card.querySelector(`[data-k="${f.k}"]`);
-    if(!el) return;
+    const el=card.querySelector(`[data-k="${f.k}"]`); if(!el) return;
     if(f.type==='bool') o[f.k]=el.checked;
-    else if(f.type==='number'){ o[f.k]= el.value===''?null:Number(el.value); }
+    else if(f.type==='number') o[f.k]= el.value===''?null:Number(el.value);
     else o[f.k]=el.value;
   });
   if(cfg.section) o.section=cfg.section;
@@ -286,22 +327,20 @@ async function saveRow(cfg,card){
   const payload=collect(card,cfg);
   const { error } = await sb.from(cfg.table).update(payload).eq('id',card.dataset.id);
   if(error){ st.className='row-status err'; st.textContent=error.message; return; }
-  st.className='row-status ok'; st.textContent='Saved ✓';
-  card.querySelector('.card-title').textContent = cfg.title(payload);
-  toast('Saved');
-  setTimeout(()=>{st.textContent='';},1800);
+  st.className='row-status ok'; st.textContent='Saved ✓'; card.querySelector('.card-title').textContent=cfg.title(payload); toast('Saved');
+  setTimeout(()=>st.textContent='',1800);
 }
-async function addRow(cfg){
+async function addRow(cfg,box,label){
   const base={ sort_order:999, visible:true };
   if(cfg.section) base.section=cfg.section;
   if(cfg.table==='activities') base.name='New activity';
   if(cfg.table==='facilities') base.name='New facility';
   if(cfg.table==='reviews'){ base.author='New reviewer'; base.rating=5; }
-  if(cfg.key==='highlights') base.title='New highlight';
-  if(cfg.key==='gallery'){ base.image_path='images/gallery-1.jpg'; }
+  if(cfg.section==='highlights') base.title='New highlight';
+  if(cfg.section==='gallery') base.image_path='images/gallery-1.jpg';
   const { error } = await sb.from(cfg.table).insert(base);
   if(error){ toast('Error: '+error.message); return; }
-  toast('Added'); loadList(cfg);
+  toast('Added'); loadList(cfg,box,label);
 }
 async function delRow(cfg,card){
   if(!confirm('Delete this item permanently?')) return;
@@ -312,40 +351,12 @@ async function delRow(cfg,card){
 async function uploadImg(card,fileInput){
   const file=fileInput.files[0]; if(!file) return;
   const status=card.querySelector('.up-status'); status.textContent='Uploading…';
-  const safe=file.name.replace(/[^a-zA-Z0-9.\-_]/g,'_');
-  const path='uploads/'+Date.now()+'-'+safe;
+  const safe=file.name.replace(/[^a-zA-Z0-9.\-_]/g,'_'); const path='uploads/'+Date.now()+'-'+safe;
   const { error } = await sb.storage.from(SB_BUCKET).upload(path,file,{upsert:true,cacheControl:'3600'});
   if(error){ status.textContent='Upload failed: '+error.message; return; }
   const url = sb.storage.from(SB_BUCKET).getPublicUrl(path).data.publicUrl;
-  card.querySelector('[data-k="image_path"]').value=url;
-  card.querySelector('[data-prev]').src=url;
+  card.querySelector('[data-k="image_path"]').value=url; card.querySelector('[data-prev]').src=url;
   status.textContent='Uploaded ✓ — remember to Save';
-}
-
-/* ---------- settings ---------- */
-async function loadSettings(){
-  $('#wrap').innerHTML='<div class="loading">Loading…</div>';
-  const { data, error } = await sb.from('settings').select('*').order('key');
-  if(error){ $('#wrap').innerHTML=`<div class="loading">Error: ${esc(error.message)}</div>`; return; }
-  const order=Object.keys(SETTING_LABELS);
-  data.sort((a,b)=>{const ia=order.indexOf(a.key),ib=order.indexOf(b.key);return (ia<0?99:ia)-(ib<0?99:ib);});
-  const rows=data.map(s=>{
-    const big = s.key==='brand_desc';
-    const input = big
-      ? `<textarea data-skey="${esc(s.key)}">${esc(s.value)}</textarea>`
-      : `<input type="text" data-skey="${esc(s.key)}" value="${esc(s.value)}">`;
-    return `<div class="field${big?' full':''}"><label>${esc(SETTING_LABELS[s.key]||s.key)}</label>${input}</div>`;
-  }).join('');
-  $('#wrap').innerHTML=`<div class="head-row"><div><h2>Contact &amp; Info</h2><div class="hint">Phone, email, address, pricing and ratings used across the site</div></div><button class="add-btn" id="saveSet">Save all</button></div>
-    <div class="card"><div class="grid2">${rows}</div><div class="card-actions"><button class="save-btn" id="saveSet2">Save all</button><span class="row-status" id="setStatus"></span></div></div>`;
-  const doSave=async()=>{
-    const st=$('#setStatus'); st.className='row-status'; st.textContent='Saving…';
-    const ups=[...document.querySelectorAll('[data-skey]')].map(el=>({key:el.dataset.skey,value:el.value,updated_at:new Date().toISOString()}));
-    const { error } = await sb.from('settings').upsert(ups,{onConflict:'key'});
-    if(error){ st.className='row-status err'; st.textContent=error.message; return; }
-    st.className='row-status ok'; st.textContent='Saved ✓'; toast('Settings saved'); setTimeout(()=>st.textContent='',1800);
-  };
-  $('#saveSet').onclick=doSave; $('#saveSet2').onclick=doSave;
 }
 
 boot();
