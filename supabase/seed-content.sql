@@ -60,6 +60,19 @@ insert into content (key,value) values
 
 -- ---------- CONTACT ----------
 ('contact_hero_tag',$$Get in Touch$$),
-('contact_hero_title',$$Contact {i}& Book{/i}$$)
+('contact_hero_title',$$Contact {i}& Book{/i}$$),
+
+-- ---------- HOME extras (hero badge/buttons, stats, CTA) ----------
+('home_hero_cert',$$Karnataka Tourism Certified Homestay$$),
+('home_hero_loc',$$Mullodi · Kalasa · Chikmagalur · Western Ghats$$),
+('home_hero_btn',$$Book Your Stay$$),
+('home_stat1_n',$$960m$$),('home_stat1_l',$$Above Sea Level$$),
+('home_stat2_n',$$4.5★$$),('home_stat2_l',$$GoIbibo Rating$$),
+('home_stat3_n',$$126$$),('home_stat3_l',$$Google Reviews$$),
+('home_stat4_n',$$2019$$),('home_stat4_l',$$Hosting Since$$),
+('home_stat5_n',$$12+$$),('home_stat5_l',$$Nearby Activities$$),
+('home_intro_btn1',$$Our Story$$),('home_intro_btn2',$$Facilities$$),
+('home_cta_eyebrow',$$Plan Your Visit$$),
+('home_cta_btn1',$$Book Your Stay$$),('home_cta_btn2',$$View Activities$$)
 
 on conflict (key) do update set value = excluded.value, updated_at = now();
