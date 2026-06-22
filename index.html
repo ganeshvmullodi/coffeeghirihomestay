@@ -371,10 +371,10 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <video autoplay muted loop playsinline preload="auto">
+    <video id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="images/hero-poster.jpg" disablepictureinpicture>
       <source src="coffeeghiri_hero.mp4" type="video/mp4">
     </video>
-    <div class="fallback" id="fallbackImg" style="background:var(--forest-mid,#2D4A2A)"></div>
+    <div class="fallback" id="fallbackImg" style="background:url('images/hero-poster.jpg') center/cover"></div>
     <div class="hero-veil"></div>
   </div>
   <div class="hero-content">
@@ -803,8 +803,21 @@
 
 <script src="cg-shared.js"></script>
 <script>
-const vid=document.querySelector('video');
-if(vid){vid.addEventListener('error',()=>{vid.style.display='none';document.getElementById('fallbackImg').style.display='block'});}
+(function(){
+  const vid=document.getElementById('heroVideo');
+  if(!vid) return;
+  vid.muted=true; vid.defaultMuted=true;        // required for autoplay on mobile
+  const play=()=>{ const p=vid.play(); if(p&&p.catch) p.catch(()=>{}); };
+  play();
+  // retry as soon as the browser has frames, and whenever the tab refocuses
+  ['loadeddata','canplay'].forEach(e=>vid.addEventListener(e,play,{once:true}));
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden) play(); });
+  // last-resort: start on the first user interaction (iOS Low Power Mode, data-saver, strict policies)
+  ['touchstart','pointerdown','click','scroll','keydown'].forEach(ev=>
+    window.addEventListener(ev,play,{once:true,passive:true}));
+  // if the video genuinely fails to load, keep the poster frame visible
+  vid.addEventListener('error',()=>{ vid.style.display='none'; document.getElementById('fallbackImg').style.display='block'; });
+})();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="cg-supabase.js"></script>
