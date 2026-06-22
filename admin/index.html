@@ -69,6 +69,7 @@ input,textarea,select{font-family:inherit}
 .up-btn{display:inline-block;background:#eef1ee;color:#333;padding:8px 14px;border-radius:7px;font-size:12.5px;font-weight:500;border:1px solid var(--line)}
 .up-btn:hover{background:#e4e8e4}
 .up-status{font-size:11.5px;color:var(--muted);margin-left:8px}
+.imgf-ctrl .sub{font-size:11px;color:var(--muted);margin-top:8px}
 
 .card-actions{display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap}
 .save-btn{background:var(--green);color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600}
@@ -120,28 +121,28 @@ const LIST = {
   activities:{ table:'activities', order:'sort_order', title:r=>r.name||'(untitled)', badge:r=>r.distance||'',
     fields:[
       {k:'name',label:'Name',type:'text'},{k:'distance',label:'Distance (e.g. 9 Kms)',type:'text'},
-      {k:'num',label:'Number label (e.g. 01)',type:'text'},{k:'tag',label:'Tag line (e.g. Full Day · Guide Required)',type:'text'},
-      {k:'description',label:'Description',type:'textarea',full:true},{k:'image_path',label:'Image',type:'image',full:true},
-      {k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+      {k:'num',label:'Card number (e.g. 01)',type:'text'},{k:'tag',label:'Tag line (e.g. Full Day · Guide Required)',type:'text'},
+      {k:'description',label:'Description',type:'textarea',full:true},{k:'image_path',label:'Photo',type:'image',full:true},
+      {k:'sort_order',label:'Display order (lower shows first)',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
   facilities:{ table:'facilities', order:'sort_order', title:r=>r.name||'(untitled)', badge:r=>r.tag||'',
     fields:[
       {k:'name',label:'Name',type:'text'},{k:'tag',label:'Tag (e.g. Veg & Non-Veg Available)',type:'text'},
-      {k:'description',label:'Description',type:'textarea',full:true},{k:'icon_svg',label:'Icon SVG (inner paths — advanced)',type:'textarea',full:true},
-      {k:'image_path',label:'Image',type:'image',full:true},{k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+      {k:'description',label:'Description',type:'textarea',full:true},
+      {k:'image_path',label:'Photo',type:'image',full:true},{k:'sort_order',label:'Display order (lower shows first)',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
   reviews:{ table:'reviews', order:'sort_order', title:r=>r.author||'(untitled)', badge:r=>(r.rating||5)+'★',
     fields:[
       {k:'author',label:'Reviewer name',type:'text'},{k:'rating',label:'Rating (1–5)',type:'number'},
       {k:'source',label:'Source label (e.g. Google Review)',type:'text'},{k:'date_label',label:'Date label (e.g. July 2025)',type:'text'},
-      {k:'text',label:'Review text',type:'textarea',full:true},{k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+      {k:'text',label:'Review text',type:'textarea',full:true},{k:'sort_order',label:'Display order (lower shows first)',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
   highlights:{ table:'gallery', order:'sort_order', section:'highlights', title:r=>r.title||'(untitled)', badge:()=>'Home',
     fields:[
       {k:'title',label:'Title',type:'text'},{k:'caption',label:'Description',type:'textarea',full:true},
-      {k:'link',label:'Link (e.g. activities.html)',type:'text'},{k:'image_path',label:'Image',type:'image',full:true},
-      {k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+      {k:'image_path',label:'Photo',type:'image',full:true},
+      {k:'sort_order',label:'Display order (lower shows first)',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
   gallery:{ table:'gallery', order:'sort_order', section:'gallery', title:r=>r.caption||'(photo)', badge:()=>'Home',
     fields:[
-      {k:'caption',label:'Caption / alt text',type:'text'},{k:'image_path',label:'Image',type:'image',full:true},
-      {k:'sort_order',label:'Sort order',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
+      {k:'caption',label:'Caption',type:'text'},{k:'image_path',label:'Photo',type:'image',full:true},
+      {k:'sort_order',label:'Display order (lower shows first)',type:'number'},{k:'visible',label:'Show on site',type:'bool'} ]},
 };
 
 /* ---------- friendly labels for text/settings keys ---------- */
@@ -183,27 +184,27 @@ const LABELS = {
 /* ---------- pages (mirror the website nav) ---------- */
 const PAGES = [
   { key:'home', label:'Home', intro:'Everything on your homepage.', sections:[
-      {type:'content', label:'Hero & section text', keys:['home_hero_title','home_hero_sub','home_intro_eyebrow','home_intro_title','home_intro_p1','home_intro_p2','home_intro_p3','home_highlights_eyebrow','home_highlights_title','home_gallery_eyebrow','home_gallery_title','home_reviews_eyebrow','home_reviews_title','home_cta_title','home_cta_text']},
+      {type:'content', label:'Page text', keys:['home_hero_sub','home_intro_eyebrow','home_intro_p1','home_intro_p2','home_intro_p3','home_highlights_eyebrow','home_gallery_eyebrow','home_reviews_eyebrow','home_cta_text']},
       {type:'list', list:'highlights', label:'Location & Ambience (highlight cards)'},
       {type:'list', list:'gallery', label:'Photo Gallery (Through the Lens)'},
       {type:'list', list:'reviews', label:'Google Reviews'},
       {type:'settings', label:'Stats & ratings', keys:['altitude','rating_goibibo','reviews_count','since_year','activities_count','rating_google']},
   ]},
   { key:'about', label:'About', intro:'Your story, the host, and the surroundings text.', sections:[
-      {type:'content', label:'About page text', keys:['about_hero_tag','about_hero_title','about_story_eyebrow','about_story_title','about_story_p1','about_story_p2','about_story_quote','about_host_eyebrow','about_host_title','about_host_p1','about_host_p2','about_host_p3','about_sur_eyebrow','about_sur_title']},
+      {type:'content', label:'About page text', keys:['about_hero_tag','about_story_eyebrow','about_story_p1','about_story_p2','about_story_quote','about_host_eyebrow','about_host_p1','about_host_p2','about_host_p3','about_sur_eyebrow']},
   ]},
   { key:'facilities', label:'Facilities', intro:'Page headings and your facility cards.', sections:[
-      {type:'content', label:'Page headings', keys:['fac_hero_tag','fac_hero_title','fac_intro_eyebrow','fac_intro_title']},
+      {type:'content', label:'Page text', keys:['fac_hero_tag','fac_intro_eyebrow']},
       {type:'list', list:'facilities', label:'Facility cards'},
   ]},
   { key:'activities', label:'Activities', intro:'Page headings and your activity cards.', sections:[
-      {type:'content', label:'Page headings & intro', keys:['act_hero_tag','act_hero_title','act_intro_eyebrow','act_intro_title','act_intro_text','act_grid_eyebrow','act_grid_title','act_cta_title','act_cta_text']},
+      {type:'content', label:'Page text', keys:['act_hero_tag','act_intro_eyebrow','act_intro_text','act_grid_eyebrow','act_cta_text']},
       {type:'list', list:'activities', label:'Activity cards'},
   ]},
   { key:'contact', label:'Contact', intro:'Your contact details, pricing and map.', sections:[
-      {type:'content', label:'Page headings', keys:['contact_hero_tag','contact_hero_title']},
+      {type:'content', label:'Page intro text', keys:['contact_hero_tag']},
       {type:'settings', label:'Contact details', keys:['contact_phone','contact_phone_intl','contact_email','whatsapp_number','address_line1','address_line2','address_line3','address_line4']},
-      {type:'settings', label:'Pricing & map', keys:['price_day','map_lat','map_lng','map_place_id','map_cid']},
+      {type:'settings', label:'Pricing', keys:['price_day']},
   ]},
 ];
 
@@ -256,13 +257,14 @@ async function renderKV(table, keys, box, label){
   const { data, error } = await sb.from(table).select('key,value').in('key',keys);
   if(error){ box.innerHTML='<div class="loading">Error: '+esc(error.message)+'</div>'; return; }
   const map={}; (data||[]).forEach(r=>map[r.key]=r.value);
+  // show plain English only — strip any old formatting markers
+  const clean=s=>(s==null?'':String(s)).replace(/\{br\}/gi,'\n').replace(/\{\/?[ib]\}/gi,'');
   const fields=keys.map(k=>{
-    const v=map[k]!=null?map[k]:''; const lbl=LABELS[k]||k; const lng=longKey(k);
+    const v=clean(map[k]!=null?map[k]:''); const lbl=LABELS[k]||k; const lng=longKey(k);
     const input = lng?`<textarea data-kv="${esc(k)}">${esc(v)}</textarea>`:`<input type="text" data-kv="${esc(k)}" value="${esc(v)}">`;
     return `<div class="field${lng?' full':''}"><label>${esc(lbl)}</label>${input}</div>`;
   }).join('');
-  const marker = table==='content' ? '<div class="hint">Tip: use <b>{i}…{/i}</b> for italic (gold), <b>{b}…{/b}</b> for bold, <b>{br}</b> for a line break.</div>' : '';
-  box.innerHTML=`<div class="head-row"><h2>${esc(label)}</h2><button class="add-btn" data-save>Save changes</button></div>${marker}
+  box.innerHTML=`<div class="head-row"><h2>${esc(label)}</h2><button class="add-btn" data-save>Save changes</button></div>
     <div class="card"><div class="grid2">${fields}</div><div class="card-actions"><button class="save-btn" data-save2>Save changes</button><span class="row-status"></span></div></div>`;
   const st=box.querySelector('.row-status');
   const doSave=async()=>{
@@ -293,8 +295,9 @@ function fieldHtml(f,row){
   if(f.type==='number') return `<div class="field"><label>${esc(f.label)}</label><input type="number" data-k="${f.k}" value="${esc(v)}"></div>`;
   if(f.type==='image') return `<div class="field full"><label>${esc(f.label)}</label><div class="imgf">
       <img class="imgf-prev" data-prev src="${esc(sbImage(v))}" alt="" onerror="this.style.opacity=.25">
-      <div class="imgf-ctrl"><input type="text" data-k="${f.k}" value="${esc(v)}" placeholder="images/… or uploaded URL">
-        <label class="up-btn">Upload image<input type="file" accept="image/*" data-upload hidden></label><span class="up-status"></span>
+      <div class="imgf-ctrl"><input type="hidden" data-k="${f.k}" value="${esc(v)}">
+        <label class="up-btn">Upload a new photo<input type="file" accept="image/*" data-upload hidden></label><span class="up-status"></span>
+        <div class="sub">JPG or PNG · the current photo shows on the left</div>
       </div></div></div>`;
   return `<div class="field${f.full?' full':''}"><label>${esc(f.label)}</label><input type="text" data-k="${f.k}" value="${esc(v)}"></div>`;
 }
