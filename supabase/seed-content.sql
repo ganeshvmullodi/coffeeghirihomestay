@@ -73,6 +73,13 @@ insert into content (key,value) values
 ('home_stat5_n',$$12+$$),('home_stat5_l',$$Nearby Activities$$),
 ('home_intro_btn1',$$Our Story$$),('home_intro_btn2',$$Facilities$$),
 ('home_cta_eyebrow',$$Plan Your Visit$$),
-('home_cta_btn1',$$Book Your Stay$$),('home_cta_btn2',$$View Activities$$)
+('home_cta_btn1',$$Book Your Stay$$),('home_cta_btn2',$$View Activities$$),
+
+-- ---------- HERO IMAGES (background photos) ----------
+('home_hero_poster',$$images/hero-poster.jpg$$),
+('hero_about_img',$$images/gallery-1.jpg$$),
+('hero_facilities_img',$$images/fac-tent.jpg$$),
+('hero_activities_img',$$images/act-hero.jpg$$),
+('hero_contact_img',$$images/contact-hero.jpg$$)
 
 on conflict (key) do update set value = excluded.value, updated_at = now();

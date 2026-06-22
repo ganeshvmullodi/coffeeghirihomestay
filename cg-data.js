@@ -122,12 +122,17 @@
       .replace(/\{br\}/g,'<br>');
   }
   async function content(){
-    const nodes=document.querySelectorAll('[data-cg-text]');
+    const nodes=document.querySelectorAll('[data-cg-text],[data-cg-img],[data-cg-bg],[data-cg-poster]');
     if(!nodes.length) return;
     const { data, error } = await sb.from('content').select('key,value');
     if(error||!data) return;
     const C={}; data.forEach(r=>C[r.key]=r.value);
-    nodes.forEach(n=>{ const k=n.dataset.cgText; if(C[k]!=null) n.innerHTML=richText(C[k]); });
+    nodes.forEach(n=>{
+      if(n.dataset.cgText!=null && C[n.dataset.cgText]!=null) n.innerHTML=richText(C[n.dataset.cgText]);
+      if(n.dataset.cgImg && C[n.dataset.cgImg]) n.setAttribute('src', sbImage(C[n.dataset.cgImg]));
+      if(n.dataset.cgBg && C[n.dataset.cgBg]) n.style.backgroundImage='url("'+sbImage(C[n.dataset.cgBg])+'")';
+      if(n.dataset.cgPoster && C[n.dataset.cgPoster]) n.setAttribute('poster', sbImage(C[n.dataset.cgPoster]));
+    });
   }
 
   // ---------- SETTINGS (contact info, links) ----------

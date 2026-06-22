@@ -160,6 +160,7 @@ const LABELS = {
   home_stat1_n:'Stat 1 — number', home_stat1_l:'Stat 1 — label', home_stat2_n:'Stat 2 — number', home_stat2_l:'Stat 2 — label',
   home_stat3_n:'Stat 3 — number', home_stat3_l:'Stat 3 — label', home_stat4_n:'Stat 4 — number', home_stat4_l:'Stat 4 — label',
   home_stat5_n:'Stat 5 — number', home_stat5_l:'Stat 5 — label',
+  home_hero_poster:'Hero background photo', hero_about_img:'Hero photo', hero_facilities_img:'Hero photo', hero_activities_img:'Hero photo', hero_contact_img:'Hero photo',
   // about text
   about_hero_tag:'Hero — small tag', about_hero_title:'Hero — heading',
   about_story_eyebrow:'Story — eyebrow', about_story_title:'Story — heading',
@@ -189,7 +190,7 @@ const LABELS = {
 /* ---------- pages (mirror the website nav) ---------- */
 const PAGES = [
   { key:'home', label:'Home', intro:'Everything on your homepage.', sections:[
-      {type:'content', label:'Hero (top banner)', keys:['home_hero_cert','home_hero_loc','home_hero_title','home_hero_sub','home_hero_btn']},
+      {type:'content', label:'Hero (top banner)', keys:['home_hero_poster','home_hero_cert','home_hero_loc','home_hero_title','home_hero_sub','home_hero_btn']},
       {type:'content', label:'Stat tiles', keys:['home_stat1_n','home_stat1_l','home_stat2_n','home_stat2_l','home_stat3_n','home_stat3_l','home_stat4_n','home_stat4_l','home_stat5_n','home_stat5_l']},
       {type:'content', label:'Intro (Welcome) section', keys:['home_intro_eyebrow','home_intro_title','home_intro_p1','home_intro_p2','home_intro_p3','home_intro_btn1','home_intro_btn2']},
       {type:'content', label:'Section headings', keys:['home_highlights_eyebrow','home_highlights_title','home_gallery_eyebrow','home_gallery_title','home_reviews_eyebrow','home_reviews_title']},
@@ -200,18 +201,18 @@ const PAGES = [
       {type:'settings', label:'Ratings & numbers (used for Google/SEO)', keys:['altitude','rating_goibibo','reviews_count','since_year','activities_count','rating_google']},
   ]},
   { key:'about', label:'About', intro:'Your story, the host, and the surroundings text.', sections:[
-      {type:'content', label:'About page text', keys:['about_hero_tag','about_hero_title','about_story_eyebrow','about_story_title','about_story_p1','about_story_p2','about_story_quote','about_host_eyebrow','about_host_title','about_host_p1','about_host_p2','about_host_p3','about_sur_eyebrow','about_sur_title']},
+      {type:'content', label:'About page text', keys:['hero_about_img','about_hero_tag','about_hero_title','about_story_eyebrow','about_story_title','about_story_p1','about_story_p2','about_story_quote','about_host_eyebrow','about_host_title','about_host_p1','about_host_p2','about_host_p3','about_sur_eyebrow','about_sur_title']},
   ]},
   { key:'facilities', label:'Facilities', intro:'Page headings and your facility cards.', sections:[
-      {type:'content', label:'Page text', keys:['fac_hero_tag','fac_hero_title','fac_intro_eyebrow','fac_intro_title']},
+      {type:'content', label:'Page text', keys:['hero_facilities_img','fac_hero_tag','fac_hero_title','fac_intro_eyebrow','fac_intro_title']},
       {type:'list', list:'facilities', label:'Facility cards'},
   ]},
   { key:'activities', label:'Activities', intro:'Page headings and your activity cards.', sections:[
-      {type:'content', label:'Page text', keys:['act_hero_tag','act_hero_title','act_intro_eyebrow','act_intro_title','act_intro_text','act_grid_eyebrow','act_grid_title','act_cta_title','act_cta_text']},
+      {type:'content', label:'Page text', keys:['hero_activities_img','act_hero_tag','act_hero_title','act_intro_eyebrow','act_intro_title','act_intro_text','act_grid_eyebrow','act_grid_title','act_cta_title','act_cta_text']},
       {type:'list', list:'activities', label:'Activity cards'},
   ]},
   { key:'contact', label:'Contact', intro:'Your contact details, pricing and map.', sections:[
-      {type:'content', label:'Page intro text', keys:['contact_hero_tag','contact_hero_title']},
+      {type:'content', label:'Page intro text', keys:['hero_contact_img','contact_hero_tag','contact_hero_title']},
       {type:'settings', label:'Contact details', keys:['contact_phone','contact_phone_intl','contact_email','whatsapp_number','address_line1','address_line2','address_line3','address_line4']},
       {type:'settings', label:'Pricing', keys:['price_day']},
   ]},
@@ -223,6 +224,7 @@ const esc = s=>(s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;')
 const longKey = k=>/_p\d$|_text$|_quote$|^brand_desc$/.test(k);
 // Styled two-tone headings: edited as plain "main text" + "highlighted word(s)" — no codes shown.
 const HEADING_KEYS = new Set(['home_hero_title','home_intro_title','home_highlights_title','home_gallery_title','home_reviews_title','home_cta_title','about_hero_title','about_story_title','about_host_title','about_sur_title','fac_hero_title','fac_intro_title','act_hero_title','act_intro_title','act_grid_title','act_cta_title','contact_hero_title']);
+const IMAGE_KEYS = new Set(['home_hero_poster','hero_about_img','hero_facilities_img','hero_activities_img','hero_contact_img']);
 const brToNl = s=>(s==null?'':String(s)).replace(/\{br\}/gi,'\n');
 const nlToBr = s=>(s==null?'':String(s)).replace(/\n/g,'{br}');
 function parseHeading(v){ v=v==null?'':String(v); const m=v.match(/^([\s\S]*?)\{i\}([\s\S]*?)\{\/i\}([\s\S]*)$/); return m?{start:m[1],accent:m[2],end:m[3]}:{start:v,accent:'',end:''}; }
@@ -279,6 +281,14 @@ async function renderKV(table, keys, box, label){
     : `<input type="text" data-kv="${esc(k)}" data-part="${part}" value="${esc(v)}">`; };
   const fields=keys.map(k=>{
     const lbl=LABELS[k]||k;
+    if(table==='content' && IMAGE_KEYS.has(k)){
+      const cur=map[k]!=null?map[k]:'';
+      return `<div class="field full"><label>${esc(lbl)}</label><div class="imgf">
+        <img class="imgf-prev" data-prevkv="${esc(k)}" src="${esc(sbImage(cur))}" alt="" onerror="this.style.opacity=.25">
+        <div class="imgf-ctrl"><input type="hidden" data-kv="${esc(k)}" value="${esc(cur)}">
+          <label class="up-btn">Upload a new photo<input type="file" accept="image/*" data-uploadkv="${esc(k)}" hidden></label><span class="up-status"></span>
+          <div class="sub">JPG or PNG · current photo shown on the left</div></div></div></div>`;
+    }
     if(table==='content' && HEADING_KEYS.has(k)){
       const h=parseHeading(map[k]);
       let html=`<div class="field full"><label>${esc(lbl)} — main text</label>${partField(k,'start',h.start)}</div>`;
@@ -306,6 +316,18 @@ async function renderKV(table, keys, box, label){
     st.className='row-status ok'; st.textContent='Saved ✓'; toast('Saved'); setTimeout(()=>st.textContent='',1800);
   };
   box.querySelector('[data-save]').onclick=doSave; box.querySelector('[data-save2]').onclick=doSave;
+  box.querySelectorAll('[data-uploadkv]').forEach(inp=>{ inp.onchange=()=>uploadKV(box,inp); });
+}
+async function uploadKV(box,inp){
+  const k=inp.dataset.uploadkv, file=inp.files[0]; if(!file) return;
+  const status=inp.closest('.imgf-ctrl').querySelector('.up-status'); status.textContent='Uploading…';
+  const safe=file.name.replace(/[^a-zA-Z0-9.\-_]/g,'_'); const path='uploads/'+Date.now()+'-'+safe;
+  const { error } = await sb.storage.from(SB_BUCKET).upload(path,file,{upsert:true,cacheControl:'3600'});
+  if(error){ status.textContent='Upload failed: '+error.message; return; }
+  const url=sb.storage.from(SB_BUCKET).getPublicUrl(path).data.publicUrl;
+  box.querySelector('[data-kv="'+k+'"]').value=url;
+  box.querySelector('[data-prevkv="'+k+'"]').src=url;
+  status.textContent='Uploaded ✓ — remember to Save changes';
 }
 
 /* ---------- list CRUD ---------- */
