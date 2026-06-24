@@ -54,7 +54,7 @@ insert into content (key,value) values
 ('act_intro_title',$$Explore the Untamed Beauty {i}Around Coffee Ghiri{/i}$$),
 ('act_intro_text',$$Nestled near the biodiversity-rich Kudremukh National Park, Coffee Ghiri is a gateway to some of the most stunning natural attractions and trekking trails in the Western Ghats. From majestic peaks to cascading waterfalls and vast tea estates, the surrounding landscape offers something for every nature lover, trekker, and photography enthusiast.$$),
 ('act_grid_eyebrow',$$All Activities$$),
-('act_grid_title',$$9 Ways to {i}Explore{/i}$$),
+('act_grid_title',$$12 Ways to {i}Explore{/i}$$),
 ('act_cta_title',$$Let Ganesh Plan Your {i}Adventure{/i}$$),
 ('act_cta_text',$$Contact our host directly and he will arrange your treks, guides, jeep transfers, and permits — everything you need for the perfect Kudremukh experience.$$),
 
